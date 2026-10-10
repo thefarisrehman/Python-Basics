@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" role="img" aria-label="Dollars Food">
+  <path d="M28 94 C26 44 66 14 100 14 C134 14 174 44 172 94 Z" fill="#E3261C"/>
+  <path d="M52 70 C54 48 70 32 92 26" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".92"/>
+  <path d="M60 76 C64 60 74 48 90 41" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".92"/>
+  <text x="112" y="80" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="64" fill="#FFB800">$</text>
+  <path d="M12 86 H66 Q100 112 134 86 H188 V106 H136 Q100 132 64 106 H12 Z" fill="#E3261C" stroke="#120c0a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M16 112 H62 Q100 140 138 112 H184 Q190 112 188 120 L184 140 H16 L12 120 Q10 112 16 112 Z" fill="#FFB800"/>
+  <path d="M56 113 Q100 146 144 113" stroke="#120c0a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

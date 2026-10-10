@@ -1,0 +1,89 @@
+<title>Dollars Food Kitchen</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .k-wrap { max-width: 1100px; margin-inline: auto; padding: 1.5rem var(--gutter) 4rem; }
+  .k-head { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .k-head h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .k-key { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .k-key .input { width: 220px; }
+  .k-stats { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.2rem; }
+  .k-stats span { border: 1px solid var(--line); border-radius: 999px; padding: .4em 1em; font-weight: 700; }
+  .k-list { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .k-list select { background: var(--char); border: 2px solid var(--line); border-radius: 10px; padding: .45em .6em; }
+  .k-list .order p { margin: 0; font-size: .9rem; }
+</style>
+
+<div class="k-wrap">
+  <div class="k-head">
+    <a class="brand" href="./"><img src="img/logo.svg" alt="" width="52" height="39"><span>Dollars<b>Food</b> Kitchen</span></a>
+    <form class="k-key" id="keyForm">
+      <input class="input" id="key" type="password" placeholder="Admin key" autocomplete="current-password">
+      <button class="btn btn-yellow" type="submit">Load orders</button>
+    </form>
+  </div>
+  <div class="k-stats" id="stats"></div>
+  <p class="form-error" id="err"></p>
+  <div class="k-list" id="list"><div class="empty">Enter the admin key to see incoming orders. The list refreshes every 20 seconds.</div></div>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const fmt = (n) => 'Rs ' + Number(n).toLocaleString('en-US');
+  const STATUSES = { placed: 'Order placed', preparing: 'Preparing', on_the_way: 'On the way', delivered: 'Delivered', cancelled: 'Cancelled' };
+  let key = '';
+  try { key = sessionStorage.getItem('df_admin') || ''; } catch {}
+  $('#key').value = key;
+
+  async function call(method, path, body) {
+    const r = await fetch('api/admin/' + path, { method, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }, body: body ? JSON.stringify(body) : undefined });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || 'Request failed');
+    return j;
+  }
+
+  async function load() {
+    if (!key) return;
+    try {
+      const { orders } = await call('GET', 'orders');
+      $('#err').textContent = '';
+      const open = orders.filter((o) => !['delivered', 'cancelled'].includes(o.status));
+      const today = orders.filter((o) => new Date(o.createdAt).toDateString() === new Date().toDateString());
+      $('#stats').innerHTML = `<span>${open.length} open</span><span>${today.length} today</span><span>${fmt(today.filter((o) => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0))} today</span>`;
+      $('#list').innerHTML = orders.length ? orders.map((o) => {
+        const left = Math.round((new Date(o.eta) - Date.now()) / 60000);
+        return `<article class="order">
+          <div class="order-top"><strong>#${o.id} · ${esc(o.name)}</strong><span class="status ${o.status}">${STATUSES[o.status]}</span></div>
+          <p class="muted">${new Date(o.createdAt).toLocaleString()} · ${{ delivery: 'Delivery', takeaway: 'Takeaway', dinein: 'Dine in' }[o.orderType]}</p>
+          <p><b>${esc(o.phone)}</b>${o.address ? ' · ' + esc(o.address) : ''}</p>
+          <ul>${o.items.map((l) => `<li>${l.qty} × ${esc(l.name)}</li>`).join('')}</ul>
+          ${o.notes ? `<p>Note: ${esc(o.notes)}</p>` : ''}
+          ${!['delivered', 'cancelled'].includes(o.status) ? `<p class="order-eta">${left > 0 ? `Due in ${left} min` : `Due ${-left} min ago`}</p>` : ''}
+          <div class="order-foot"><span class="price">${fmt(o.total)}</span>
+            <select data-id="${o.id}" aria-label="Status for order ${o.id}">${Object.entries(STATUSES).map(([v, l]) => `<option value="${v}" ${v === o.status ? 'selected' : ''}>${l}</option>`).join('')}</select>
+          </div>
+        </article>`;
+      }).join('') : '<div class="empty">No orders yet.</div>';
+    } catch (e) {
+      $('#err').textContent = e.message;
+    }
+  }
+
+  $('#keyForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    key = $('#key').value.trim();
+    try { sessionStorage.setItem('df_admin', key); } catch {}
+    load();
+  });
+  $('#list').addEventListener('change', async (e) => {
+    if (!e.target.dataset.id) return;
+    try { await call('PATCH', 'orders/' + e.target.dataset.id, { status: e.target.value }); load(); }
+    catch (err) { $('#err').textContent = err.message; }
+  });
+  load();
+  setInterval(load, 20000);
+})();
+</script>

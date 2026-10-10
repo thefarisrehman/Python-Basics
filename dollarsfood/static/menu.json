@@ -1,0 +1,298 @@
+{
+  "settings": {
+    "brand": "Dollars Food",
+    "phone": "0340-1219888",
+    "whatsapp": "923401219888",
+    "address": "St 5, Lane 10, Hostel City, Islamabad",
+    "deliveryMinutes": 30,
+    "deliveryFee": 0,
+    "currency": "Rs"
+  },
+  "categories": [
+    {
+      "id": "solo",
+      "name": "Solo Deals",
+      "blurb": "One person, one box, full mood."
+    },
+    {
+      "id": "deals",
+      "name": "Family Deals",
+      "blurb": "Bring the whole hostel floor."
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "blurb": "Medium, Large or XL. Pick your size."
+    },
+    {
+      "id": "chicken",
+      "name": "Chicken Deals",
+      "blurb": "Any one for Rs 350, or go big for Rs 699."
+    }
+  ],
+  "items": [
+    {
+      "id": "solo-zinger",
+      "category": "solo",
+      "name": "Solo Zinger Deal",
+      "tag": "Limited time",
+      "image": "img/solo-deal.jpg",
+      "includes": [
+        "1 Zinger Burger",
+        "Regular Fries",
+        "Chilled Mint Margarita"
+      ],
+      "desc": "Spicy, crunchy zinger with golden fries and a chilled mint margarita.",
+      "price": 499
+    },
+    {
+      "id": "chinese-box",
+      "category": "solo",
+      "name": "Chinese Solo Box",
+      "tag": "Budget main full Chinese vibe",
+      "image": "img/chinese-box.jpg",
+      "includes": [
+        "Chicken Chowmein",
+        "2 Crispy Wings",
+        "Regular Drink"
+      ],
+      "desc": "Ek box, tasty food, full mood.",
+      "price": 699
+    },
+    {
+      "id": "deal-1",
+      "category": "deals",
+      "name": "Deal 1",
+      "image": "img/deal1.jpg",
+      "includes": [
+        "2 Zinger Burgers",
+        "2 Chicken Wings",
+        "1 Fries",
+        "2 Regular Drinks"
+      ],
+      "price": 849
+    },
+    {
+      "id": "deal-2",
+      "category": "deals",
+      "name": "Deal 2",
+      "image": "img/deal2.jpg",
+      "includes": [
+        "3 Zinger Burgers",
+        "1 Cold Drink (1 Ltr)"
+      ],
+      "price": 999
+    },
+    {
+      "id": "deal-3",
+      "category": "deals",
+      "name": "Deal 3",
+      "image": "img/deal3.jpg",
+      "includes": [
+        "1 Zinger Burger",
+        "1 Zinger Wrap",
+        "1 Cold Drink (275 ml)"
+      ],
+      "price": 699
+    },
+    {
+      "id": "deal-4",
+      "category": "deals",
+      "name": "Deal 4",
+      "image": "img/deal4.jpg",
+      "includes": [
+        "1 Medium Pizza",
+        "2 Zinger Burgers",
+        "1 Plain Fries",
+        "1 Cold Drink (1 Ltr)"
+      ],
+      "price": 1699
+    },
+    {
+      "id": "deal-5",
+      "category": "deals",
+      "name": "Deal 5",
+      "image": "img/deal5.jpg",
+      "includes": [
+        "1 Large Pizza",
+        "5 Pcs Wings",
+        "1 Cold Drink (1 Ltr)"
+      ],
+      "price": 1649
+    },
+    {
+      "id": "deal-6",
+      "category": "deals",
+      "name": "Deal 6",
+      "image": "img/deal6.jpg",
+      "includes": [
+        "2 Medium Pizzas",
+        "1 Pasta",
+        "1 Plain Fries",
+        "1 Cold Drink (1.5 Ltr)"
+      ],
+      "price": 2249
+    },
+    {
+      "id": "pizza-fajita",
+      "category": "pizza",
+      "name": "Fajita Pizza",
+      "image": "img/pizza.jpg",
+      "desc": "Fajita chicken pizza.",
+      "sizes": [
+        {
+          "id": "M",
+          "name": "Medium",
+          "price": 980
+        },
+        {
+          "id": "L",
+          "name": "Large",
+          "price": 1260
+        },
+        {
+          "id": "XL",
+          "name": "XL",
+          "price": 1680
+        }
+      ]
+    },
+    {
+      "id": "pizza-tikka",
+      "category": "pizza",
+      "name": "Tikka Pizza",
+      "image": "img/pizza.jpg",
+      "desc": "Chicken tikka pizza.",
+      "sizes": [
+        {
+          "id": "M",
+          "name": "Medium",
+          "price": 980
+        },
+        {
+          "id": "L",
+          "name": "Large",
+          "price": 1260
+        },
+        {
+          "id": "XL",
+          "name": "XL",
+          "price": 1680
+        }
+      ]
+    },
+    {
+      "id": "pizza-special",
+      "category": "pizza",
+      "name": "$ Special Pizza",
+      "image": "img/pizza.jpg",
+      "desc": "The house $ Special pizza.",
+      "sizes": [
+        {
+          "id": "M",
+          "name": "Medium",
+          "price": 980
+        },
+        {
+          "id": "L",
+          "name": "Large",
+          "price": 1260
+        },
+        {
+          "id": "XL",
+          "name": "XL",
+          "price": 1680
+        }
+      ]
+    },
+    {
+      "id": "pizza-signature",
+      "category": "pizza",
+      "name": "Signature Pizza",
+      "tag": "Signature",
+      "image": "img/pizza.jpg",
+      "desc": "Our premium Signature pizza.",
+      "sizes": [
+        {
+          "id": "M",
+          "name": "Medium",
+          "price": 1400
+        },
+        {
+          "id": "L",
+          "name": "Large",
+          "price": 1680
+        },
+        {
+          "id": "XL",
+          "name": "XL",
+          "price": 1960
+        }
+      ]
+    },
+    {
+      "id": "ch-fried-2",
+      "category": "chicken",
+      "tier": "Any one for Rs 350",
+      "name": "Fried Chicken 2 Pcs",
+      "image": "img/chicken.jpg",
+      "price": 350
+    },
+    {
+      "id": "ch-oven-5",
+      "category": "chicken",
+      "tier": "Any one for Rs 350",
+      "name": "Oven Baked Wings 5 Pcs",
+      "image": "img/wings.jpg",
+      "price": 350
+    },
+    {
+      "id": "ch-crispy-5",
+      "category": "chicken",
+      "tier": "Any one for Rs 350",
+      "name": "Crispy Wings 5 Pcs",
+      "image": "img/wings.jpg",
+      "price": 350
+    },
+    {
+      "id": "ch-tempura-5",
+      "category": "chicken",
+      "tier": "Any one for Rs 350",
+      "name": "Chicken Tempura Strips 5 Pcs",
+      "image": "img/chicken.jpg",
+      "price": 350
+    },
+    {
+      "id": "ch-fried-5",
+      "category": "chicken",
+      "tier": "Go big: any one for Rs 699",
+      "name": "Fried Chicken 5 Pcs",
+      "image": "img/chicken.jpg",
+      "price": 699
+    },
+    {
+      "id": "ch-oven-12",
+      "category": "chicken",
+      "tier": "Go big: any one for Rs 699",
+      "name": "Oven Baked Wings 12 Pcs",
+      "image": "img/wings.jpg",
+      "price": 699
+    },
+    {
+      "id": "ch-crispy-12",
+      "category": "chicken",
+      "tier": "Go big: any one for Rs 699",
+      "name": "Crispy Wings 12 Pcs",
+      "image": "img/wings.jpg",
+      "price": 699
+    },
+    {
+      "id": "ch-tempura-12",
+      "category": "chicken",
+      "tier": "Go big: any one for Rs 699",
+      "name": "Chicken Tempura Strips 12 Pcs",
+      "image": "img/chicken.jpg",
+      "price": 699
+    }
+  ]
+}
