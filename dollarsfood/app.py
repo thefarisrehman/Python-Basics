@@ -182,6 +182,15 @@ def admin_required(fn):
     return wrapper
 
 
+def is_open(at=None):
+    """Open from hours.open to hours.close Pakistan time; the close may be after midnight."""
+    h = SETTINGS["hours"]
+    hour = (at or now()).astimezone(timezone(timedelta(hours=h["utcOffset"]))).hour
+    if h["open"] < h["close"]:
+        return h["open"] <= hour < h["close"]
+    return hour >= h["open"] or hour < h["close"]
+
+
 def price_cart(lines):
     """Re-price the cart from the menu so the browser can't change prices."""
     if not isinstance(lines, list) or not lines:
@@ -238,7 +247,7 @@ def admin_page():
 
 @app.get("/api/health")
 def health():
-    return jsonify({"ok": True, "mode": "server"})
+    return jsonify({"ok": True, "mode": "server", "open": is_open()})
 
 
 @app.get("/api/menu")
@@ -298,6 +307,8 @@ def my_orders():
 @app.post("/api/orders")
 @login_required
 def place_order():
+    if not is_open():
+        return error(f"We're closed right now. We take orders {SETTINGS['hours']['label']}.")
     data = request.get_json(silent=True) or {}
     try:
         items = price_cart(data.get("items"))

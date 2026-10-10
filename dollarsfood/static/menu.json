@@ -6,7 +6,13 @@
     "address": "St 5, Lane 10, Hostel City, Islamabad",
     "deliveryMinutes": 30,
     "deliveryFee": 0,
-    "currency": "Rs"
+    "currency": "Rs",
+    "hours": {
+      "open": 12,
+      "close": 4,
+      "utcOffset": 5,
+      "label": "12pm – 4am"
+    }
   },
   "categories": [
     {

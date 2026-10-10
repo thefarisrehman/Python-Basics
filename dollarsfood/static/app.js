@@ -28,6 +28,28 @@
   let orderType = 'delivery';
   let lastOrder = null;
 
+  // ------------------------------------------------------------------ opening hours (Pakistan time)
+
+  function isOpen(at = new Date()) {
+    const h = S.hours;
+    const hour = (at.getUTCHours() + h.utcOffset + 24) % 24;
+    return h.open < h.close ? hour >= h.open && hour < h.close : hour >= h.open || hour < h.close;
+  }
+  const closedMsg = () => `We're closed right now. We take orders ${S.hours.label}.`;
+
+  function renderOpen() {
+    const open = isOpen();
+    const pill = $('#openPill');
+    pill.dataset.open = String(open);
+    pill.querySelector('span').textContent = open ? 'Open now' : 'Closed · opens 12pm';
+    const eta = $('#cartEta');
+    eta.classList.toggle('closed', !open);
+    eta.querySelector('span').textContent = open ? `Free delivery in ${S.deliveryMinutes} minutes` : closedMsg();
+    const btn = $('#checkoutBtn');
+    btn.disabled = !open;
+    btn.textContent = open ? 'Checkout' : 'Closed · opens at 12pm';
+  }
+
   // ------------------------------------------------------------------ pricing
 
   function normalizePhone(raw) {
@@ -92,6 +114,7 @@
       return { orders: (store.get('df_orders', {})[u.phone] || []).slice().reverse() };
     },
     async placeOrder(d) {
+      if (!isOpen()) fail(closedMsg());
       const u = this.userFromToken();
       if (!u) fail('Please sign in to continue.');
       const items = d.items.map(priceLine).filter(Boolean);
@@ -381,6 +404,7 @@
 
   function openCheckout() {
     if (!cart.length) return toast('Your cart is empty.');
+    if (!isOpen()) return toast(closedMsg());
     if (!session) return openAuth(openCheckout);
     $('#coFormView').hidden = false;
     $('#coDoneView').hidden = true;
@@ -748,6 +772,8 @@
     renderTabs();
     renderMenu();
     renderCart();
+    renderOpen();
+    setInterval(renderOpen, 30000);
     renderStarInput();
     loadReviews();
     bind();

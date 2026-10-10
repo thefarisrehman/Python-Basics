@@ -108,6 +108,15 @@ a { color: inherit; }
 .bump { animation: bump .5s cubic-bezier(.3, 1.8, .5, 1); }
 @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.25) rotate(-6deg); } 100% { transform: scale(1); } }
 
+/* ---------- open / closed ---------- */
+.hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+.open-pill { display: inline-flex; align-items: center; gap: .5em; font-weight: 800; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; padding: .35em .85em; border-radius: 999px; border: 1px solid rgba(76, 195, 138, .45); color: var(--ok); background: rgba(76, 195, 138, .1); }
+.open-pill i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 currentColor; animation: live 1.8s ease-out infinite; }
+.open-pill[data-open="false"] { color: #ff8b80; border-color: rgba(255, 139, 128, .45); background: rgba(255, 139, 128, .1); }
+.open-pill[data-open="false"] i { animation: none; }
+@keyframes live { 0% { box-shadow: 0 0 0 0 rgba(76, 195, 138, .7); } 100% { box-shadow: 0 0 0 9px rgba(76, 195, 138, 0); } }
+.eta-pill.closed { background: rgba(255, 139, 128, .1); border-color: rgba(255, 139, 128, .4); color: #ffb3ab; }
+
 /* ---------- hero ---------- */
 .hero { position: relative; overflow: hidden; isolation: isolate; }
 .hero::before {
