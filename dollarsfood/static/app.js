@@ -224,8 +224,6 @@
 
   // ------------------------------------------------------------------ menu rendering
 
-  const roundImage = (src) => /pizza|chicken\.jpg/.test(src);
-
   function cardHTML(item, i) {
     const size = item.sizes ? (chosenSize[item.id] ||= item.sizes[0].id) : null;
     const price = item.sizes ? item.sizes.find((s) => s.id === size).price : item.price;
@@ -233,7 +231,7 @@
       <article class="card" data-card="${item.id}" style="animation:fade .5s ${Math.min(i, 8) * 0.05}s both">
         ${item.tag ? `<span class="tag ${item.category === 'pizza' ? 'y' : ''}">${esc(item.tag)}</span>` : ''}
         <span class="in-cart" data-incart="${item.id}" hidden></span>
-        <div class="card-media ${roundImage(item.image) ? 'round' : ''}"><img src="${item.image}" alt="${esc(item.name)}" loading="lazy"></div>
+        <div class="card-media"><img src="${item.image}" alt="${esc(item.name)}" loading="lazy"></div>
         <div class="card-body">
           <h4>${esc(item.name)}</h4>
           ${item.desc ? `<p>${esc(item.desc)}</p>` : ''}
