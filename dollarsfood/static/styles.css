@@ -407,6 +407,13 @@ textarea.input { resize: vertical; min-height: 68px; }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* ---------- opening logo animation ---------- */
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--ink); display: grid; place-content: center; justify-items: center; gap: 1.1rem; cursor: pointer; }
+.intro-mark { width: min(180px, 42vw); line-height: 0; }
+.intro-mark img { width: 100%; filter: drop-shadow(0 18px 40px rgba(227, 38, 28, .45)); }
+.intro-name { font-weight: 800; font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: -.02em; opacity: 0; }
+.intro-name b { color: var(--mustard); font-weight: 800; }
+
 /* reveal: visible at rest; only below-the-fold blocks are primed by JS */
 .reveal.primed { opacity: .35; transform: translateY(20px); }
 .reveal.shown { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }

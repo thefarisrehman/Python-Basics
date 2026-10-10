@@ -749,6 +749,56 @@
     });
   }
 
+  // ------------------------------------------------------------------ opening logo animation
+
+  function intro() {
+    const target = $('.nav .brand img');
+    if (reduceMotion || !target || !Element.prototype.animate) return;
+    const ov = document.createElement('div');
+    ov.className = 'intro';
+    ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML = '<div class="intro-mark"><img src="img/logo.svg" alt=""></div><span class="intro-name">Dollars<b>Food</b></span>';
+    document.body.appendChild(ov);
+    target.style.opacity = '0';
+    const mark = ov.querySelector('.intro-mark');
+    const name = ov.querySelector('.intro-name');
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      target.style.opacity = '';
+      ov.remove();
+    };
+    ov.addEventListener('click', finish);
+    setTimeout(finish, 3000); // safety net
+
+    // 1. zoom out: logo starts huge and settles in the centre
+    mark.animate([
+      { transform: 'scale(4)', opacity: 0, filter: 'blur(8px)' },
+      { transform: 'scale(.92)', opacity: 1, filter: 'blur(0)', offset: 0.75 },
+      { transform: 'scale(1)', opacity: 1, filter: 'blur(0)' },
+    ], { duration: 800, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+    name.animate([
+      { opacity: 0, transform: 'translateY(10px)' },
+      { opacity: 1, transform: 'none' },
+    ], { duration: 400, delay: 450, easing: 'ease-out', fill: 'forwards' });
+
+    // 2. shrink into the header logo while the page fades in
+    setTimeout(() => {
+      if (done) return;
+      const a = mark.querySelector('img').getBoundingClientRect(), b = target.getBoundingClientRect();
+      const dx = b.left + b.width / 2 - (a.left + a.width / 2);
+      const dy = b.top + b.height / 2 - (a.top + a.height / 2);
+      mark.animate([
+        { transform: 'translate(0,0) scale(1)' },
+        { transform: `translate(${dx}px, ${dy}px) scale(${b.width / a.width})` },
+      ], { duration: 650, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
+      name.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: 'forwards' });
+      ov.animate([{ backgroundColor: 'rgba(15,13,12,1)' }, { backgroundColor: 'rgba(15,13,12,0)' }],
+        { duration: 650, easing: 'ease-in', fill: 'forwards' }).onfinish = finish;
+    }, 1150);
+  }
+
   // ------------------------------------------------------------------ boot
 
   async function boot() {
@@ -780,6 +830,7 @@
     setInterval(tick, 1000);
   }
 
+  intro();
   boot().catch((e) => {
     console.error(e);
     $('#menu-groups').innerHTML = '<p class="form-error">The menu could not load. Refresh the page, or call 0340-1219888 to order.</p>';

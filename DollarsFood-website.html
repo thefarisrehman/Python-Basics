@@ -413,6 +413,13 @@ textarea.input { resize: vertical; min-height: 68px; }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* ---------- opening logo animation ---------- */
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--ink); display: grid; place-content: center; justify-items: center; gap: 1.1rem; cursor: pointer; }
+.intro-mark { width: min(180px, 42vw); line-height: 0; }
+.intro-mark img { width: 100%; filter: drop-shadow(0 18px 40px rgba(227, 38, 28, .45)); }
+.intro-name { font-weight: 800; font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: -.02em; opacity: 0; }
+.intro-name b { color: var(--mustard); font-weight: 800; }
+
 /* reveal: visible at rest; only below-the-fold blocks are primed by JS */
 .reveal.primed { opacity: .35; transform: translateY(20px); }
 .reveal.shown { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
@@ -1502,6 +1509,56 @@ textarea.input { resize: vertical; min-height: 68px; }
     });
   }
 
+  // ------------------------------------------------------------------ opening logo animation
+
+  function intro() {
+    const target = $('.nav .brand img');
+    if (reduceMotion || !target || !Element.prototype.animate) return;
+    const ov = document.createElement('div');
+    ov.className = 'intro';
+    ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML = '<div class="intro-mark"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkRvbGxhcnMgRm9vZCI+CiAgPHBhdGggZD0iTTI4IDk0IEMyNiA0NCA2NiAxNCAxMDAgMTQgQzEzNCAxNCAxNzQgNDQgMTcyIDk0IFoiIGZpbGw9IiNFMzI2MUMiLz4KICA8cGF0aCBkPSJNNTIgNzAgQzU0IDQ4IDcwIDMyIDkyIDI2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBmaWxsPSJub25lIiBvcGFjaXR5PSIuOTIiLz4KICA8cGF0aCBkPSJNNjAgNzYgQzY0IDYwIDc0IDQ4IDkwIDQxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBmaWxsPSJub25lIiBvcGFjaXR5PSIuOTIiLz4KICA8dGV4dCB4PSIxMTIiIHk9IjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjY0IiBmaWxsPSIjRkZCODAwIj4kPC90ZXh0PgogIDxwYXRoIGQ9Ik0xMiA4NiBINjYgUTEwMCAxMTIgMTM0IDg2IEgxODggVjEwNiBIMTM2IFExMDAgMTMyIDY0IDEwNiBIMTIgWiIgZmlsbD0iI0UzMjYxQyIgc3Ryb2tlPSIjMTIwYzBhIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNMTYgMTEyIEg2MiBRMTAwIDE0MCAxMzggMTEyIEgxODQgUTE5MCAxMTIgMTg4IDEyMCBMMTg0IDE0MCBIMTYgTDEyIDEyMCBRMTAgMTEyIDE2IDExMiBaIiBmaWxsPSIjRkZCODAwIi8+CiAgPHBhdGggZD0iTTU2IDExMyBRMTAwIDE0NiAxNDQgMTEzIiBzdHJva2U9IiMxMjBjMGEiIHN0cm9rZS13aWR0aD0iMy41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==" alt=""></div><span class="intro-name">Dollars<b>Food</b></span>';
+    document.body.appendChild(ov);
+    target.style.opacity = '0';
+    const mark = ov.querySelector('.intro-mark');
+    const name = ov.querySelector('.intro-name');
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      target.style.opacity = '';
+      ov.remove();
+    };
+    ov.addEventListener('click', finish);
+    setTimeout(finish, 3000); // safety net
+
+    // 1. zoom out: logo starts huge and settles in the centre
+    mark.animate([
+      { transform: 'scale(4)', opacity: 0, filter: 'blur(8px)' },
+      { transform: 'scale(.92)', opacity: 1, filter: 'blur(0)', offset: 0.75 },
+      { transform: 'scale(1)', opacity: 1, filter: 'blur(0)' },
+    ], { duration: 800, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+    name.animate([
+      { opacity: 0, transform: 'translateY(10px)' },
+      { opacity: 1, transform: 'none' },
+    ], { duration: 400, delay: 450, easing: 'ease-out', fill: 'forwards' });
+
+    // 2. shrink into the header logo while the page fades in
+    setTimeout(() => {
+      if (done) return;
+      const a = mark.querySelector('img').getBoundingClientRect(), b = target.getBoundingClientRect();
+      const dx = b.left + b.width / 2 - (a.left + a.width / 2);
+      const dy = b.top + b.height / 2 - (a.top + a.height / 2);
+      mark.animate([
+        { transform: 'translate(0,0) scale(1)' },
+        { transform: `translate(${dx}px, ${dy}px) scale(${b.width / a.width})` },
+      ], { duration: 650, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
+      name.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: 'forwards' });
+      ov.animate([{ backgroundColor: 'rgba(15,13,12,1)' }, { backgroundColor: 'rgba(15,13,12,0)' }],
+        { duration: 650, easing: 'ease-in', fill: 'forwards' }).onfinish = finish;
+    }, 1150);
+  }
+
   // ------------------------------------------------------------------ boot
 
   async function boot() {
@@ -1533,6 +1590,7 @@ textarea.input { resize: vertical; min-height: 68px; }
     setInterval(tick, 1000);
   }
 
+  intro();
   boot().catch((e) => {
     console.error(e);
     $('#menu-groups').innerHTML = '<p class="form-error">The menu could not load. Refresh the page, or call 0340-1219888 to order.</p>';
