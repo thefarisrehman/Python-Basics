@@ -162,10 +162,118 @@
     ${v.cream ? straw : ""}${cream}${v.cream ? dz : ""}`;
   }
 
+
+  function plate(id, y = 312, rx = 170) {
+    return `<defs><radialGradient id="shadow${id}"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      <linearGradient id="plate${id}" x1="0" x2="1"><stop offset="0" stop-color="#ebe6e0"/><stop offset=".3" stop-color="#fff"/><stop offset="1" stop-color="#e2dcd5"/></linearGradient></defs>
+      <ellipse cx="200" cy="${y + 22}" rx="${rx + 10}" ry="22" fill="url(#shadow${id})"/>
+      <ellipse cx="200" cy="${y + 4}" rx="${rx}" ry="34" fill="#e4dfd9"/>
+      <ellipse cx="200" cy="${y}" rx="${rx}" ry="32" fill="url(#plate${id})"/>
+      <ellipse cx="200" cy="${y}" rx="${rx - 40}" ry="20" fill="#f3f0ec"/>`;
+  }
+
+  function club(v, id) {
+    const tri = "M180 92 Q186 92 190 100 L292 296 Q296 308 284 308 L76 308 Q64 308 68 296 L170 100 Q174 92 180 92Z";
+    const H = 216, bottom = 308;
+    let y = bottom, stripes = "";
+    v.layers.forEach(([c, f], i) => {
+      const h = f * H; y -= h;
+      const wave = c === "#7cb342" ? `<path d="M40 ${y + 2} q10 -9 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 V${y + h} H40Z" fill="${c}"/>` :
+        `<rect x="40" y="${y.toFixed(1)}" width="300" height="${(h + 1).toFixed(1)}" fill="${c}"/>`;
+      stripes += wave;
+    });
+    const half = (dx, dy, dark) => `<g transform="translate(${dx} ${dy})">
+      <clipPath id="tri${id}${dx}"><path d="${tri}"/></clipPath>
+      <g clip-path="url(#tri${id}${dx})"><rect x="40" y="80" width="300" height="240" fill="#f6dc8f"/>${stripes}
+        <rect x="40" y="80" width="300" height="240" fill="url(#toast${id})"/>${dark ? `<rect x="40" y="80" width="300" height="240" fill="#000" opacity=".12"/>` : ""}</g>
+      <path d="${tri}" fill="none" stroke="#c07a33" stroke-width="9" stroke-linejoin="round"/></g>`;
+    return `${plate(id, 318)}
+      <defs><linearGradient id="toast${id}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#7a3d10" stop-opacity=".18"/></linearGradient></defs>
+      <g class="food">${half(80, -14, true)}${half(-4, 0, false)}
+      <line x1="176" y1="40" x2="176" y2="210" stroke="#d8b98c" stroke-width="4" stroke-linecap="round"/>
+      <g class="pick"><path d="M176 44 l-14 -16 q14 -8 28 0z" fill="#6f4325"/><circle cx="176" cy="30" r="7" fill="#111"/></g></g>`;
+  }
+
+  function panini(v, id) {
+    const half = (x, y, r, k) => {
+      const [a, b, c] = v.fill;
+      let grill = "";
+      for (let i = -3; i <= 3; i++) grill += `<line x1="${i * 34 - 30}" y1="-80" x2="${i * 34 + 30}" y2="10" stroke="#8a4a1c" stroke-width="7" stroke-linecap="round" opacity=".55"/>`;
+      return `<g transform="translate(${x} ${y}) rotate(${r})">
+        <rect x="-112" y="-18" width="224" height="52" rx="22" fill="#d8954c"/>
+        <path d="M-108 4 q14 -8 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 V18 H-108Z" fill="${c}"/>
+        <rect x="-110" y="8" width="220" height="10" fill="${b}"/>
+        <path d="M-108 20 q18 8 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 V28 H-108Z" fill="${a}"/>
+        <clipPath id="top${id}${k}"><rect x="-112" y="-84" width="224" height="90" rx="36"/></clipPath>
+        <rect x="-112" y="-84" width="224" height="90" rx="36" fill="url(#crust${id})"/>
+        <g clip-path="url(#top${id}${k})">${grill}</g>
+        <path d="M-80 -70 q60 -14 150 -4" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".35" fill="none"/></g>`;
+    };
+    return `${plate(id, 300)}
+      <defs><linearGradient id="crust${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1c27d"/><stop offset="1" stop-color="#cf8a42"/></linearGradient></defs>
+      <g class="food">${half(250, 210, 12, "b")}${half(160, 262, -6, "a")}</g>`;
+  }
+
+  function slice(v, id) {
+    const H = 160, x1 = 110, x2 = 250, dx = 70, dy = -40, B = 300;
+    let y = B, front = "", side = "";
+    v.layers.forEach(([c, f]) => {
+      const h = f * H, y2 = y - h;
+      front += `<rect x="${x1}" y="${y2.toFixed(1)}" width="${x2 - x1}" height="${(h + .6).toFixed(1)}" fill="${c}"/>`;
+      side += `<path d="M${x2} ${y} L${x2 + dx} ${y + dy} L${x2 + dx} ${y2 + dy} L${x2} ${y2}Z" fill="${shade(c, -0.12)}"/>`;
+      y = y2;
+    });
+    const T = y, cx = 215, cy = T - 20;
+    const rnd = (n, f) => Array.from({ length: n }, f).join("");
+    const top = `M${x1} ${T} L${x2} ${T} L${x2 + dx} ${T + dy} L${x1 + dx} ${T + dy}Z`;
+    const toppings = {
+      pistachio: rnd(40, () => `<circle cx="${(cx + (Math.random() - .5) * 150).toFixed(0)}" cy="${(cy + (Math.random() - .5) * 26).toFixed(0)}" r="${(2 + Math.random() * 3).toFixed(1)}" fill="${Math.random() > .5 ? "#9cc35a" : "#6e9a3a"}"/>`) +
+        `<path d="M130 ${T - 6} q30 -24 60 -6 t60 -10 t50 -12" stroke="#d9a441" stroke-width="3" fill="none"/><path d="M150 ${T - 2} l120 -34" stroke="#7a4a2a" stroke-width="5" stroke-linecap="round"/>`,
+      milk: `<g class="dollop" stroke="#e6d8c2" stroke-width="2"><ellipse cx="${cx}" cy="${cy}" rx="34" ry="13" fill="#fff"/><ellipse cx="${cx}" cy="${cy - 10}" rx="22" ry="11" fill="#fffdf8"/><ellipse cx="${cx}" cy="${cy - 18}" rx="10" ry="7" fill="#fff"/></g>` +
+        `<path d="M${x1} ${T + 4} q35 10 70 0 t70 0" stroke="#f6ead2" stroke-width="6" fill="none"/>` +
+        rnd(30, () => `<circle cx="${(cx + (Math.random() - .5) * 150).toFixed(0)}" cy="${(cy + (Math.random() - .5) * 24).toFixed(0)}" r="1.6" fill="#a0612b"/>`),
+      biscoff: `<g transform="translate(${cx} ${cy - 22}) rotate(-12)"><rect x="-40" y="-26" width="80" height="52" rx="8" fill="#b8692c"/><rect x="-34" y="-20" width="68" height="40" rx="6" fill="none" stroke="#8f4f1e" stroke-width="2.5"/><text x="0" y="5" font-size="13" font-family="Georgia" fill="#7a3f14" text-anchor="middle" font-weight="700">lotus</text></g>` +
+        rnd(20, () => `<circle cx="${(cx + (Math.random() - .5) * 150).toFixed(0)}" cy="${(cy + (Math.random() - .5) * 24).toFixed(0)}" r="${(2 + Math.random() * 2).toFixed(1)}" fill="#8f4f1e"/>`),
+      crumbs: rnd(35, () => `<circle cx="${(cx + (Math.random() - .5) * 150).toFixed(0)}" cy="${(cy + (Math.random() - .5) * 24).toFixed(0)}" r="${(2 + Math.random() * 2.5).toFixed(1)}" fill="#a3202f"/>`) +
+        `<path d="M195 ${cy - 6} q12 -18 26 -4 q12 12 24 -6" stroke="#fffaf0" stroke-width="7" fill="none" stroke-linecap="round"/>`,
+    };
+    return `${plate(id, 304)}
+      <g class="food">${v.topping === "milk" ? `<ellipse cx="205" cy="${B + 4}" rx="150" ry="22" fill="#f6ead2"/>` : ""}
+      ${side}${front}
+      <path d="${top}" fill="${v.top}"/>
+      <path d="${top}" fill="#fff" opacity=".12"/>
+      ${toppings[v.topping] || ""}
+      <path d="M${x1} ${B} V${T} H${x2} V${B}" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="2"/></g>`;
+  }
+
+  function lava(v, id) {
+    const dust = Array.from({ length: 50 }, () => {
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 64;
+      return `<circle cx="${(200 + Math.cos(a) * r).toFixed(1)}" cy="${(176 + Math.sin(a) * r * .28).toFixed(1)}" r="${(1 + Math.random() * 1.8).toFixed(1)}" fill="#fff"/>`;
+    }).join("");
+    return `${plate(id, 300)}
+      <defs><linearGradient id="cake${id}" x1="0" x2="1"><stop offset="0" stop-color="#3a1c0e"/><stop offset=".35" stop-color="#5a2d16"/><stop offset="1" stop-color="#2a1309"/></linearGradient>
+      <linearGradient id="lava${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2210"/><stop offset="1" stop-color="#2b1207"/></linearGradient></defs>
+      <g class="food">
+      <path d="M125 178 C125 240 128 280 140 292 Q200 312 260 292 C272 280 275 240 275 178Z" fill="url(#cake${id})"/>
+      <ellipse cx="200" cy="178" rx="75" ry="22" fill="#4a2414"/>
+      ${dust}
+      <path class="lava" d="M172 230 Q200 214 228 230 C234 260 246 284 262 300 Q300 316 280 326 Q220 338 150 330 Q112 322 140 302 C156 286 166 262 172 230Z" fill="url(#lava${id})"/>
+      <path d="M182 240 Q196 232 210 238" stroke="#a0613a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+      <path d="M150 316 Q190 324 236 318" stroke="#8a4b26" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>
+      <g transform="translate(300 286) rotate(18)"><path d="M0 -26 C22 -26 26 -4 18 12 C12 24 4 30 0 30 C-4 30 -12 24 -18 12 C-26 -4 -22 -26 0 -26Z" fill="#d7263d"/>
+      <path d="M-14 -28 L-4 -20 L0 -32 L4 -20 L14 -28 L8 -16 L-8 -16Z" fill="#43a047"/>
+      ${Array.from({ length: 10 }, (_, i) => `<ellipse cx="${-12 + (i % 4) * 8}" cy="${-8 + Math.floor(i / 4) * 12}" rx="1.4" ry="2.2" fill="#ffd54f"/>`).join("")}</g>
+      <path d="M150 196 q6 50 6 90" stroke="#fff" stroke-width="6" opacity=".12" stroke-linecap="round" fill="none"/></g>`;
+  }
+
   window.drinkSVG = function (visual, opts = {}) {
     const id = ++uid;
-    const body = visual.type === "glass" ? glass(visual, id) : ceramic(visual, id, visual.type === "espresso");
-    return `<svg class="drink ${visual.type === "glass" ? "is-iced" : "is-hot"}" viewBox="0 -20 400 380"
+    const t = visual.type;
+    const draw = { glass, club, panini, slice, lava }[t];
+    const body = draw ? draw(visual, id) : ceramic(visual, id, t === "espresso");
+    const kind = t === "glass" ? "is-iced" : draw ? "is-food" : "is-hot";
+    return `<svg class="drink ${kind}" viewBox="0 -20 400 380"
       role="img" aria-label="${opts.label || "Coffee"}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
   };
 })();

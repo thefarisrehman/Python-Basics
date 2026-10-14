@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Orders · Nescafe Web Cafe</title>
+  <title>Orders · WebCafe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <style>
     body { background: var(--cream); }
     .wrap { width: min(1000px, 100% - 32px); margin: 40px auto; }
@@ -14,6 +16,8 @@
     .order { background: #fff; border-radius: 16px; padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); }
     .order header { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
     .order ul { margin: 8px 0; padding-left: 18px; }
+    
+    .pill.paid { background: #2e7d32; }
     .pill { background: var(--ink); color: #fff; border-radius: 999px; padding: 2px 10px; font-size: 12px; text-transform: uppercase; }
   </style>
 </head>
@@ -39,9 +43,10 @@
       document.getElementById("list").innerHTML = data.map((o) => `
         <article class="order">
           <header><strong>${esc(o.orderId)} · ${esc(o.customer.name)} · ${esc(o.customer.phone)}</strong>
-            <span><span class="pill">${esc(o.customer.mode)}</span> ${new Date(o.createdAt).toLocaleString()}</span></header>
+            <span><span class="pill ${o.status === "paid" ? "paid" : ""}">${esc(o.status.replace("_", " "))}</span> <span class="pill">${esc(o.customer.mode)}</span> ${new Date(o.createdAt).toLocaleString()}</span></header>
+          <div>✉️ ${esc(o.customer.email || "")}</div>
           ${o.customer.address ? `<div>📍 ${esc(o.customer.address)}</div>` : ""}
-          <ul>${o.items.map((i) => `<li>${i.qty} × ${esc(i.name)} (${esc(i.size)}) — ${esc(o.currency)}${i.lineTotal.toFixed(2)}</li>`).join("")}</ul>
+          <ul>${o.items.map((i) => `<li>${i.qty} × ${esc(i.name)}${i.sizeLabel ? ` (${esc(i.sizeLabel)})` : ""} — ${esc(o.currency)}${i.lineTotal.toFixed(2)}</li>`).join("")}</ul>
           ${o.customer.notes ? `<div class="muted">Note: ${esc(o.customer.notes)}</div>` : ""}
           <strong>Total: ${esc(o.currency)}${o.total.toFixed(2)}</strong>
         </article>`).join("");

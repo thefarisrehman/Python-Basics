@@ -1,8 +1,9 @@
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  const CART_KEY = "nescafe-cart";
-  const CATEGORY = { hot: "Hot coffee", iced: "Iced", special: "Specials" };
+  const CART_KEY = "webcafe-cart";
+  const WHATSAPP = "923369241221";
+  const CATEGORY = { hot: "Hot coffee", iced: "Iced", special: "Specials", sandwich: "Sandwiches", cake: "Cakes" };
 
   let menu = null;
   let byId = {};
@@ -10,7 +11,9 @@
   let current = { product: null, size: "M", qty: 1 };
 
   const money = (n) => `${menu.currency}${n.toFixed(2)}`;
-  const unitPrice = (p, size) => Math.round((p.price + menu.sizes[size].add) * 100) / 100;
+  const unitPrice = (p, size) => Math.round((p.price + (size ? menu.sizes[size].add : 0)) * 100) / 100;
+  const defaultSize = (p) => (p.sized ? "M" : null);
+  const sizeLabel = (size) => (size ? menu.sizes[size].label : "");
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   function loadCart() {
@@ -32,7 +35,9 @@
       return;
     }
     byId = Object.fromEntries(menu.products.map((p) => [p.id, p]));
-    cart = cart.filter((i) => byId[i.id] && menu.sizes[i.size]);
+    cart = cart.filter((i) => byId[i.id] && (!byId[i.id].sized || menu.sizes[i.size]));
+    cart.forEach((i) => { if (!byId[i.id].sized) i.size = null; });
+    if (menu.testMode) document.body.insertAdjacentHTML("afterbegin", `<div class="test-banner">Test mode: payments are simulated until Safepay keys are added.</div>`);
 
     const hero = byId.cappuccino || menu.products[0];
     $("#heroCup").innerHTML = drinkSVG(hero.visual, { label: hero.name });
@@ -44,6 +49,7 @@
     renderCart();
     bindEvents();
     observeReveal();
+    handlePaymentReturn();
   }
 
   /* ---------- Menu grid ---------- */
@@ -70,13 +76,14 @@
   /* ---------- Product modal ---------- */
   function openProduct(id) {
     const p = byId[id];
-    current = { product: p, size: "M", qty: 1 };
+    current = { product: p, size: defaultSize(p), qty: 1 };
     $("#pmArt").innerHTML = drinkSVG(p.visual, { label: p.name });
     $("#pmCat").textContent = `${CATEGORY[p.category]} · ${p.kcal} kcal`;
     $("#pmName").textContent = p.name;
     $("#pmDesc").textContent = p.description;
     $("#pmIng").innerHTML = p.ingredients.map((x) => `<li>${esc(x)}</li>`).join("");
-    $("#pmSizes").innerHTML = Object.entries(menu.sizes).map(([k, s]) =>
+    $("#pmSizeHead").hidden = $("#pmSizes").hidden = !p.sized;
+    $("#pmSizes").innerHTML = !p.sized ? "" : Object.entries(menu.sizes).map(([k, s]) =>
       `<button type="button" class="size" data-size="${k}"><strong>${s.label}</strong><span>${s.ml} ml · ${money(unitPrice(p, k))}</span></button>`).join("");
     updateModal();
     show("#productOverlay");
@@ -96,7 +103,7 @@
     renderCart();
     const c = $("#cartCount");
     c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump");
-    toast(`${byId[id].name} (${menu.sizes[size].label}) added to your order`);
+    toast(`${byId[id].name}${size ? ` (${sizeLabel(size)})` : ""} added to your order`);
   }
 
   function totals(mode) {
@@ -116,7 +123,7 @@
       const p = byId[i.id];
       return `<div class="cart-item">
         <div class="thumb">${drinkSVG(p.visual, { label: p.name })}</div>
-        <div><h4>${esc(p.name)}</h4><small>${menu.sizes[i.size].label} · ${money(unitPrice(p, i.size))}</small>
+        <div><h4>${esc(p.name)}</h4><small>${i.size ? sizeLabel(i.size) + " · " : ""}${money(unitPrice(p, i.size))}</small>
           <div class="qty sm" style="margin-top:6px;width:max-content">
             <button data-dec="${idx}" aria-label="Decrease">−</button><span>${i.qty}</span><button data-inc="${idx}" aria-label="Increase">+</button>
           </div></div>
@@ -153,17 +160,19 @@
     const data = {
       name: f.elements.name.value.trim(),
       phone: f.elements.phone.value.trim(),
+      email: f.elements.email.value.trim(),
       mode: f.elements.mode.value,
       address: f.elements.address.value.trim(),
       notes: f.elements.notes.value.trim(),
     };
     if (data.name.length < 2) return (err.textContent = "Please enter your name.");
     if (!/^[0-9+()\-\s]{7,20}$/.test(data.phone)) return (err.textContent = "Please enter a valid phone number.");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return (err.textContent = "Please enter a valid email for your receipt.");
     if (data.mode === "delivery" && data.address.length < 6) return (err.textContent = "Please enter a delivery address.");
     err.textContent = "";
 
     const btn = $("#placeOrder");
-    btn.disabled = true; btn.textContent = "Placing order…";
+    btn.disabled = true; btn.textContent = "Redirecting to secure payment…";
     try {
       const res = await fetch("/api/orders", {
         method: "POST",
@@ -172,16 +181,33 @@
       });
       const out = await res.json();
       if (!res.ok) throw new Error(out.error || "Something went wrong.");
-      cart = []; saveCart(); renderCart();
-      $("#successId").textContent = out.orderId;
-      $("#successText").textContent = `Thanks ${out.customer.name}! Your total is ${money(out.total)}. ` +
-        (out.customer.mode === "delivery" ? `We'll deliver in about ${out.etaMinutes} minutes.` : `It'll be ready for pickup in about ${out.etaMinutes} minutes.`);
-      f.reset(); $("#addressField").hidden = true;
-      step("Success");
+      location.href = out.paymentUrl;
     } catch (ex) {
       err.textContent = ex.message || "Could not reach the cafe. Please try again.";
-    } finally {
-      btn.disabled = false; btn.textContent = "Place order";
+      btn.disabled = false; btn.textContent = "Pay securely";
+    }
+  }
+
+  /* ---------- Back from the payment page ---------- */
+  async function handlePaymentReturn() {
+    const q = new URLSearchParams(location.search);
+    if (![...q.keys()].some((k) => ["paid", "cancelled", "payfail"].includes(k))) return;
+    history.replaceState(null, "", location.pathname);
+    if (q.has("cancelled")) return toast("Payment cancelled. Your order is still in the cart.");
+    if (q.has("payfail")) return toast("We couldn't confirm your payment. Please contact us on WhatsApp.");
+    try {
+      const res = await fetch("/api/orders/" + encodeURIComponent(q.get("paid")));
+      const o = await res.json();
+      if (!res.ok || o.status !== "paid") throw new Error();
+      cart = []; saveCart(); renderCart();
+      $("#successId").textContent = o.orderId;
+      $("#successText").textContent = `Thanks ${o.name}! We received ${money(o.total)} and a receipt is on its way to your email. ` +
+        (o.mode === "delivery" ? `We'll deliver in about ${o.etaMinutes} minutes.` : `It'll be ready for pickup in about ${o.etaMinutes} minutes.`);
+      $("#waConfirm").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hi WebCafe! I just paid for order ${o.orderId}.`)}`;
+      step("Success");
+      show("#cartOverlay");
+    } catch {
+      toast("We couldn't confirm your payment yet. Please contact us on WhatsApp.");
     }
   }
 
@@ -223,7 +249,7 @@
     $("#productGrid").addEventListener("click", (e) => {
       const open = e.target.closest("[data-open]");
       const quick = e.target.closest("[data-quick]");
-      if (quick) addToCart(quick.dataset.quick, "M", 1);
+      if (quick) addToCart(quick.dataset.quick, defaultSize(byId[quick.dataset.quick]), 1);
       else if (open) openProduct(open.dataset.open);
     });
 

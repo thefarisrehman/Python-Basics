@@ -1,3 +1,4 @@
-nescafe-cafe/data/orders.json
-nescafe-cafe/data/orders.tmp
+webcafe/data/orders.json
+webcafe/data/orders.tmp
 __pycache__/
+webcafe/.env

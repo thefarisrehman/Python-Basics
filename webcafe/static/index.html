@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nescafe Web Cafe</title>
-  <meta name="description" content="Freshly crafted coffee. Order espresso, lattes, cappuccinos, cold brew and more online for pickup or delivery.">
+  <title>WebCafe · Peshawar</title>
+  <meta name="description" content="WebCafe, Peshawar Cantt. Order coffee, sandwiches and cakes online. Pay securely, then pick up or get it delivered.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,9 +14,9 @@
 <body>
   <header class="nav" id="nav">
     <div class="container nav-inner">
-      <a href="#top" class="logo" aria-label="Nescafe Web Cafe home">
-        <span class="logo-mark">N</span>
-        <span class="logo-text">NESCAFE<small>Web Cafe</small></span>
+      <a href="#top" class="logo" aria-label="WebCafe home">
+        <svg class="logo-emblem" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8703f"/><stop offset="1" stop-color="#5a3420"/></linearGradient></defs><circle cx="32" cy="32" r="31" fill="#111"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#c9a27f" stroke-width="1" opacity=".55"/><g transform="rotate(-32 32 32)"><ellipse cx="32" cy="32" rx="13" ry="18" fill="url(#lgB)"/><path d="M32 15 C26 24 38 40 32 49" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/></g></svg>
+        <span class="logo-word"><svg class="logo-watermark" viewBox="-60 -80 120 160" aria-hidden="true"><g transform="rotate(-28)"><ellipse rx="56" ry="78" fill="currentColor"/><path d="M0 -74 C-26 -34 26 34 0 74" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/></g></svg><span class="wm">Web<em>Cafe</em></span><small>Coffee · Bites</small></span>
       </a>
       <nav class="nav-links" id="navLinks">
         <a href="#menu">Menu</a>
@@ -33,18 +34,19 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
+      <span class="hero-watermark" aria-hidden="true"><svg class="wm-big" viewBox="-60 -80 120 160" aria-hidden="true"><g transform="rotate(-28)"><ellipse rx="56" ry="78" fill="currentColor"/><path d="M0 -74 C-26 -34 26 34 0 74" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/></g></svg></span>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow reveal">Freshly crafted · Since day one</p>
+          <p class="eyebrow reveal">Peshawar Cantt · Coffee &amp; bites</p>
           <h1 class="reveal">Every cup,<br><em>perfectly brewed.</em></h1>
-          <p class="lead reveal">Premium coffee made the way you love it, from a bold espresso to a silky caramel macchiato. Order in seconds, then pick it up or have it delivered.</p>
+          <p class="lead reveal">Premium coffee, loaded sandwiches and trending cakes, made fresh in Peshawar. Order in seconds, pay securely online, then pick it up or have it delivered.</p>
           <div class="hero-cta reveal">
             <a href="#menu" class="btn btn-dark">Order now</a>
             <a href="#why" class="btn btn-ghost">Our story</a>
           </div>
           <ul class="hero-stats reveal">
-            <li><strong>12+</strong><span>Signature drinks</span></li>
-            <li><strong>10 min</strong><span>Pickup ready</span></li>
+            <li><strong>22+</strong><span>Drinks, sandwiches &amp; cakes</span></li>
+            <li><strong>12 min</strong><span>Pickup ready</span></li>
             <li><strong>4.9★</strong><span>Customer rating</span></li>
           </ul>
         </div>
@@ -60,8 +62,8 @@
     <!-- MARQUEE -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Espresso</span><span>✦</span><span>Cappuccino</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Mocha Frappé</span><span>✦</span><span>Caramel Macchiato</span><span>✦</span>
-        <span>Espresso</span><span>✦</span><span>Cappuccino</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Mocha Frappé</span><span>✦</span><span>Caramel Macchiato</span><span>✦</span>
+        <span>Espresso</span><span>✦</span><span>Club Sandwich</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Pistachio Kunafa Cake</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Tres Leches</span><span>✦</span>
+        <span>Espresso</span><span>✦</span><span>Club Sandwich</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Pistachio Kunafa Cake</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Tres Leches</span><span>✦</span>
       </div>
     </div>
 
@@ -71,13 +73,15 @@
         <div class="section-head reveal">
           <p class="eyebrow">Our menu</p>
           <h2>Crafted for every mood</h2>
-          <p class="muted">Tap any drink to see its ingredients, pick a size and add it to your order.</p>
+          <p class="muted">Tap any item to see its ingredients, choose a size and add it to your order.</p>
         </div>
         <div class="filters reveal" role="tablist" id="filters">
           <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
           <button class="chip" data-filter="hot" role="tab" aria-selected="false">Hot coffee</button>
           <button class="chip" data-filter="iced" role="tab" aria-selected="false">Iced</button>
           <button class="chip" data-filter="special" role="tab" aria-selected="false">Specials</button>
+          <button class="chip" data-filter="sandwich" role="tab" aria-selected="false">Sandwiches</button>
+          <button class="chip" data-filter="cake" role="tab" aria-selected="false">Cakes</button>
         </div>
         <div class="grid" id="productGrid" aria-live="polite">
           <p class="muted">Loading menu…</p>
@@ -100,25 +104,25 @@
           </article>
           <article class="feature reveal">
             <div class="feature-icon">⚡</div>
-            <h3>Ready in 10 minutes</h3>
+            <h3>Ready in 12 minutes</h3>
             <p>Order online and skip the queue. Your drink is waiting when you arrive.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-icon">🛵</div>
             <h3>Fast delivery</h3>
-            <p>Hot stays hot, iced stays iced. Free delivery on orders over <span class="free-over"></span>.</p>
+            <p>Delivery across Peshawar. Free on orders over <span class="free-over"></span>.</p>
           </article>
           <article class="feature reveal">
-            <div class="feature-icon">♡</div>
-            <h3>Made your way</h3>
-            <p>Three sizes and special instructions on every order, just how you like it.</p>
+            <div class="feature-icon">🔒</div>
+            <h3>Secure online payment</h3>
+            <p>Pay safely by card online. Your order is confirmed the moment you pay.</p>
           </article>
         </div>
 
         <div class="testimonials">
-          <blockquote class="reveal">“The best cappuccino in town, and ordering online is so easy.”<cite>Ayesha K.</cite></blockquote>
-          <blockquote class="reveal">“The caramel macchiato is unreal. My order was ready the second I walked in.”<cite>Daniel R.</cite></blockquote>
-          <blockquote class="reveal">“Clean, cozy, consistent. My daily cold brew stop.”<cite>Sara M.</cite></blockquote>
+          <blockquote class="reveal">“The best cappuccino in Peshawar, and ordering online is so easy.”<cite>Ayesha K.</cite></blockquote>
+          <blockquote class="reveal">“That pistachio kunafa cake is unreal. My order was ready the second I walked in.”<cite>Hamza A.</cite></blockquote>
+          <blockquote class="reveal">“Club sandwich and a cold brew: my perfect lunch. Clean, cozy, consistent.”<cite>Sara M.</cite></blockquote>
         </div>
       </div>
     </section>
@@ -126,7 +130,7 @@
     <!-- CTA BAND -->
     <section class="band reveal">
       <div class="container band-inner">
-        <h2>Your next favourite cup is one click away.</h2>
+        <h2>Your next favourite cup, or slice, is one click away.</h2>
         <a href="#menu" class="btn btn-light">Browse the menu</a>
       </div>
     </section>
@@ -137,7 +141,11 @@
         <div class="reveal">
           <p class="eyebrow">Visit us</p>
           <h2>Come for the coffee,<br>stay for the vibe.</h2>
-          <p class="muted">Main Boulevard, City Centre<br>Phone: +00 000 0000000</p>
+          <p class="muted">Peshawar Cantt, Peshawar, Pakistan</p>
+          <div class="contact-btns">
+            <a class="btn btn-dark" href="tel:+923369241221">Call 0336 9241221</a>
+            <a class="btn btn-ghost" href="https://wa.me/923369241221" target="_blank" rel="noopener">WhatsApp us</a>
+          </div>
         </div>
         <div class="hours reveal">
           <h3>Opening hours</h3>
@@ -153,8 +161,8 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span class="logo-text light">NESCAFE<small>Web Cafe</small></span>
-      <p>© <span id="year"></span> Nescafe Web Cafe. All rights reserved.</p>
+      <a href="#top" class="logo light" aria-label="WebCafe home"><svg class="logo-emblem" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lgB2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8703f"/><stop offset="1" stop-color="#5a3420"/></linearGradient></defs><circle cx="32" cy="32" r="31" fill="#111"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#c9a27f" stroke-width="1" opacity=".55"/><g transform="rotate(-32 32 32)"><ellipse cx="32" cy="32" rx="13" ry="18" fill="url(#lgB2)"/><path d="M32 15 C26 24 38 40 32 49" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/></g></svg><span class="logo-word"><span class="wm">Web<em>Cafe</em></span><small>Peshawar Cantt · 0336 9241221</small></span></a>
+      <p>© <span id="year"></span> WebCafe. All rights reserved.</p>
     </div>
   </footer>
 
@@ -169,7 +177,7 @@
         <p class="muted" id="pmDesc"></p>
         <h4>Ingredients</h4>
         <ul class="ingredients" id="pmIng"></ul>
-        <h4>Size</h4>
+        <h4 id="pmSizeHead">Size</h4>
         <div class="sizes" id="pmSizes"></div>
         <div class="modal-actions">
           <div class="qty">
@@ -203,26 +211,32 @@
           <label><input type="radio" name="mode" value="delivery"><span>Delivery</span></label>
         </div>
         <label class="field">Full name<input name="name" autocomplete="name" required maxlength="80"></label>
-        <label class="field">Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="20"></label>
-        <label class="field" id="addressField" hidden>Delivery address<textarea name="address" rows="2" maxlength="200"></textarea></label>
+        <label class="field">Phone / WhatsApp<input name="phone" type="tel" autocomplete="tel" required maxlength="20" placeholder="03xx xxxxxxx"></label>
+        <label class="field">Email (for your receipt)<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+        <label class="field" id="addressField" hidden>Delivery address<textarea name="address" rows="2" maxlength="200" placeholder="House, street, area (Peshawar)"></textarea></label>
         <label class="field">Notes (optional)<textarea name="notes" rows="2" maxlength="300" placeholder="Less sugar, extra hot, oat milk…"></textarea></label>
         <div class="totals" id="checkoutTotals"></div>
         <p class="form-error" id="formError" role="alert"></p>
-        <button class="btn btn-dark block" type="submit" id="placeOrder">Place order</button>
-        <p class="small muted center">Pay at the counter or on delivery.</p>
+        <button class="btn btn-dark block" type="submit" id="placeOrder">Pay securely</button>
+        <p class="small muted center pay-note">🔒 You'll be taken to our secure payment page. Card details never touch our servers.</p>
       </form>
 
       <div class="drawer-step success" id="stepSuccess" hidden>
         <div class="check"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M15 27l7 7 15-15"/></svg></div>
-        <h3>Order placed!</h3>
+        <h3>Payment received!</h3>
         <p class="muted" id="successText"></p>
         <p class="order-id" id="successId"></p>
-        <button class="btn btn-dark block" id="newOrder">Order something else</button>
+        <a class="btn btn-ghost block" id="waConfirm" target="_blank" rel="noopener">Message us on WhatsApp</a>
+        <button class="btn btn-dark block" id="newOrder" style="margin-top:10px">Order something else</button>
       </div>
     </aside>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <a class="wa-float" href="https://wa.me/923369241221" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.3z"/></svg>
+  </a>
 
   <script src="js/cups.js"></script>
   <script src="js/app.js"></script>

@@ -1,0 +1,640 @@
+{
+  "currency": "$",
+  "currencyCode": "USD",
+  "deliveryFee": 1.5,
+  "freeDeliveryOver": 20,
+  "sizes": {
+    "S": {
+      "label": "Small",
+      "ml": 240,
+      "add": 0
+    },
+    "M": {
+      "label": "Medium",
+      "ml": 350,
+      "add": 0.6
+    },
+    "L": {
+      "label": "Large",
+      "ml": 470,
+      "add": 1.1
+    }
+  },
+  "products": [
+    {
+      "id": "espresso",
+      "name": "Classic Espresso",
+      "category": "hot",
+      "price": 2.5,
+      "badge": "Signature",
+      "kcal": 5,
+      "description": "A short, intense shot with a thick golden crema. Rich, bold and pure.",
+      "ingredients": [
+        "Double-roasted arabica",
+        "Filtered water"
+      ],
+      "visual": {
+        "type": "espresso",
+        "liquid": "#3b2416",
+        "art": "crema"
+      },
+      "sized": true
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "category": "hot",
+      "price": 3.0,
+      "kcal": 10,
+      "description": "Espresso lengthened with hot water for a smooth, clean, long black.",
+      "ingredients": [
+        "Espresso (2 shots)",
+        "Hot water"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#2e1a10",
+        "art": "crema"
+      },
+      "sized": true
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "category": "hot",
+      "price": 3.8,
+      "badge": "Bestseller",
+      "kcal": 120,
+      "description": "Equal parts espresso, steamed milk and velvety foam, finished with cocoa.",
+      "ingredients": [
+        "Espresso",
+        "Steamed milk",
+        "Milk foam",
+        "Cocoa dusting"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#c79a6b",
+        "art": "cocoa"
+      },
+      "sized": true
+    },
+    {
+      "id": "latte",
+      "name": "Caffè Latte",
+      "category": "hot",
+      "price": 4.0,
+      "kcal": 190,
+      "description": "Silky steamed milk poured over espresso with a hand-poured rosetta.",
+      "ingredients": [
+        "Espresso",
+        "Steamed whole milk",
+        "Light microfoam"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#a8703f",
+        "art": "rosetta"
+      },
+      "sized": true
+    },
+    {
+      "id": "flat-white",
+      "name": "Flat White",
+      "category": "hot",
+      "price": 3.9,
+      "kcal": 110,
+      "description": "A ristretto double shot with thin, glossy microfoam. Strong and creamy.",
+      "ingredients": [
+        "Ristretto (2 shots)",
+        "Steamed milk",
+        "Microfoam"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#8a5a32",
+        "art": "heart"
+      },
+      "sized": true
+    },
+    {
+      "id": "mocha",
+      "name": "Café Mocha",
+      "category": "hot",
+      "price": 4.5,
+      "kcal": 290,
+      "description": "Espresso and Belgian chocolate with steamed milk and whipped cream.",
+      "ingredients": [
+        "Espresso",
+        "Dark chocolate sauce",
+        "Steamed milk",
+        "Whipped cream",
+        "Chocolate shavings"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#5a3420",
+        "art": "cream"
+      },
+      "sized": true
+    },
+    {
+      "id": "caramel-macchiato",
+      "name": "Caramel Macchiato",
+      "category": "iced",
+      "price": 4.8,
+      "badge": "Customer favourite",
+      "kcal": 250,
+      "description": "Layers of cold milk, vanilla and espresso, crowned with a caramel drizzle.",
+      "ingredients": [
+        "Espresso",
+        "Cold milk",
+        "Vanilla syrup",
+        "Caramel drizzle",
+        "Ice"
+      ],
+      "visual": {
+        "type": "glass",
+        "layers": [
+          [
+            "#e9d3b6",
+            0.38
+          ],
+          [
+            "#b88353",
+            0.22
+          ],
+          [
+            "#5b3520",
+            0.12
+          ]
+        ],
+        "ice": true,
+        "straw": true,
+        "drizzle": "#c8812e"
+      },
+      "sized": true
+    },
+    {
+      "id": "iced-latte",
+      "name": "Iced Latte",
+      "category": "iced",
+      "price": 4.2,
+      "kcal": 150,
+      "description": "Chilled espresso over ice with fresh cold milk. Light and refreshing.",
+      "ingredients": [
+        "Espresso",
+        "Cold milk",
+        "Ice"
+      ],
+      "visual": {
+        "type": "glass",
+        "layers": [
+          [
+            "#f1e4d2",
+            0.42
+          ],
+          [
+            "#c49467",
+            0.18
+          ],
+          [
+            "#7a4a2a",
+            0.12
+          ]
+        ],
+        "ice": true,
+        "straw": true
+      },
+      "sized": true
+    },
+    {
+      "id": "cold-brew",
+      "name": "Cold Brew",
+      "category": "iced",
+      "price": 4.0,
+      "kcal": 5,
+      "description": "Steeped for 18 hours for a naturally sweet, low-acid, ultra-smooth coffee.",
+      "ingredients": [
+        "Coarse-ground arabica",
+        "Cold filtered water",
+        "Ice"
+      ],
+      "visual": {
+        "type": "glass",
+        "layers": [
+          [
+            "#2c180d",
+            0.72
+          ]
+        ],
+        "ice": true,
+        "straw": true
+      },
+      "sized": true
+    },
+    {
+      "id": "frappe",
+      "name": "Mocha Frappé",
+      "category": "special",
+      "price": 5.2,
+      "badge": "New",
+      "kcal": 380,
+      "description": "Blended coffee, chocolate and ice topped with whipped cream and chocolate drizzle.",
+      "ingredients": [
+        "Instant coffee blend",
+        "Milk",
+        "Chocolate sauce",
+        "Ice",
+        "Whipped cream"
+      ],
+      "visual": {
+        "type": "glass",
+        "layers": [
+          [
+            "#9b6a45",
+            0.74
+          ]
+        ],
+        "cream": true,
+        "straw": true,
+        "drizzle": "#4a2614"
+      },
+      "sized": true
+    },
+    {
+      "id": "hazelnut-latte",
+      "name": "Hazelnut Latte",
+      "category": "special",
+      "price": 4.7,
+      "kcal": 230,
+      "description": "Our caffè latte with toasted hazelnut syrup and a sweet nutty finish.",
+      "ingredients": [
+        "Espresso",
+        "Steamed milk",
+        "Hazelnut syrup",
+        "Microfoam"
+      ],
+      "visual": {
+        "type": "cup",
+        "liquid": "#b07d4f",
+        "art": "rosetta"
+      },
+      "sized": true
+    },
+    {
+      "id": "dalgona",
+      "name": "Dalgona Coffee",
+      "category": "special",
+      "price": 4.9,
+      "kcal": 210,
+      "description": "Whipped coffee cloud spooned over cold milk. Fluffy, sweet and photogenic.",
+      "ingredients": [
+        "Instant coffee",
+        "Sugar",
+        "Hot water (whipped)",
+        "Cold milk",
+        "Ice"
+      ],
+      "visual": {
+        "type": "glass",
+        "layers": [
+          [
+            "#f4ead9",
+            0.5
+          ],
+          [
+            "#c98b4e",
+            0.2
+          ]
+        ],
+        "ice": true
+      },
+      "sized": true
+    },
+    {
+      "id": "club-sandwich",
+      "name": "Club Sandwich",
+      "category": "sandwich",
+      "price": 5.5,
+      "badge": "Bestseller",
+      "kcal": 520,
+      "description": "Triple-decker toasted sandwich with grilled chicken, fried egg, cheese and fresh veggies.",
+      "ingredients": [
+        "Toasted bread",
+        "Grilled chicken",
+        "Fried egg",
+        "Cheddar",
+        "Lettuce",
+        "Tomato",
+        "Garlic mayo"
+      ],
+      "visual": {
+        "type": "club",
+        "layers": [
+          [
+            "#f3d27a",
+            0.12
+          ],
+          [
+            "#7cb342",
+            0.1
+          ],
+          [
+            "#d84a3a",
+            0.1
+          ],
+          [
+            "#c99a6b",
+            0.22
+          ],
+          [
+            "#fff3c4",
+            0.1
+          ],
+          [
+            "#f3d27a",
+            0.12
+          ]
+        ]
+      },
+      "sized": false
+    },
+    {
+      "id": "chicken-tikka-panini",
+      "name": "Chicken Tikka Panini",
+      "category": "sandwich",
+      "price": 5.9,
+      "badge": "Desi favourite",
+      "kcal": 480,
+      "description": "Smoky chicken tikka, mint chutney and mozzarella pressed in a golden ciabatta.",
+      "ingredients": [
+        "Ciabatta",
+        "Chicken tikka",
+        "Mozzarella",
+        "Mint chutney",
+        "Onion rings"
+      ],
+      "visual": {
+        "type": "panini",
+        "fill": [
+          "#c0552d",
+          "#fff1c9",
+          "#6aa84f"
+        ]
+      },
+      "sized": false
+    },
+    {
+      "id": "zinger-sandwich",
+      "name": "Crispy Zinger Sandwich",
+      "category": "sandwich",
+      "price": 5.2,
+      "kcal": 610,
+      "description": "Crunchy spicy fried chicken fillet with jalapeño mayo, lettuce and cheese.",
+      "ingredients": [
+        "Toasted bread",
+        "Crispy zinger fillet",
+        "Cheese slice",
+        "Lettuce",
+        "Jalapeño mayo"
+      ],
+      "visual": {
+        "type": "club",
+        "layers": [
+          [
+            "#f3d27a",
+            0.12
+          ],
+          [
+            "#7cb342",
+            0.08
+          ],
+          [
+            "#d98b2b",
+            0.3
+          ],
+          [
+            "#ffd54f",
+            0.08
+          ],
+          [
+            "#f3d27a",
+            0.12
+          ]
+        ]
+      },
+      "sized": false
+    },
+    {
+      "id": "fajita-sandwich",
+      "name": "Chicken Fajita Sandwich",
+      "category": "sandwich",
+      "price": 5.4,
+      "kcal": 500,
+      "description": "Sizzling fajita chicken with sautéed peppers, onions and melted cheese.",
+      "ingredients": [
+        "Grilled bread",
+        "Fajita chicken",
+        "Bell peppers",
+        "Onions",
+        "Cheese sauce"
+      ],
+      "visual": {
+        "type": "panini",
+        "fill": [
+          "#a85a2e",
+          "#f2c94c",
+          "#e53935"
+        ]
+      },
+      "sized": false
+    },
+    {
+      "id": "peri-peri-sandwich",
+      "name": "Peri Peri Chicken Sandwich",
+      "category": "sandwich",
+      "price": 5.6,
+      "badge": "Spicy",
+      "kcal": 540,
+      "description": "Flame-grilled peri peri chicken with coleslaw and smoky peri mayo.",
+      "ingredients": [
+        "Grilled bread",
+        "Peri peri chicken",
+        "Coleslaw",
+        "Peri mayo",
+        "Lettuce"
+      ],
+      "visual": {
+        "type": "panini",
+        "fill": [
+          "#b23a1f",
+          "#fff8e1",
+          "#8bc34a"
+        ]
+      },
+      "sized": false
+    },
+    {
+      "id": "kunafa-cake",
+      "name": "Pistachio Kunafa Cake",
+      "category": "cake",
+      "price": 5.9,
+      "badge": "Trending",
+      "kcal": 460,
+      "description": "Viral Dubai-style chocolate cake with crispy kunafa and creamy pistachio filling.",
+      "ingredients": [
+        "Chocolate sponge",
+        "Pistachio cream",
+        "Toasted kunafa",
+        "Milk chocolate ganache"
+      ],
+      "visual": {
+        "type": "slice",
+        "layers": [
+          [
+            "#4a2617",
+            0.3
+          ],
+          [
+            "#a7c46c",
+            0.16
+          ],
+          [
+            "#d9a441",
+            0.12
+          ],
+          [
+            "#4a2617",
+            0.3
+          ]
+        ],
+        "top": "#3a1d10",
+        "topping": "pistachio"
+      },
+      "sized": false
+    },
+    {
+      "id": "tres-leches",
+      "name": "Tres Leches",
+      "category": "cake",
+      "price": 4.5,
+      "badge": "Customer favourite",
+      "kcal": 380,
+      "description": "Soft sponge soaked in three milks, topped with whipped cream and cinnamon.",
+      "ingredients": [
+        "Vanilla sponge",
+        "Evaporated milk",
+        "Condensed milk",
+        "Fresh cream",
+        "Cinnamon"
+      ],
+      "visual": {
+        "type": "slice",
+        "layers": [
+          [
+            "#f3dca4",
+            0.7
+          ]
+        ],
+        "top": "#f7e8c8",
+        "topping": "milk"
+      },
+      "sized": false
+    },
+    {
+      "id": "lotus-cheesecake",
+      "name": "Lotus Biscoff Cheesecake",
+      "category": "cake",
+      "price": 5.2,
+      "kcal": 450,
+      "description": "Creamy baked cheesecake on a Biscoff crumb base with caramelised spread on top.",
+      "ingredients": [
+        "Biscoff crumb base",
+        "Cream cheese",
+        "Biscoff spread",
+        "Lotus cookie"
+      ],
+      "visual": {
+        "type": "slice",
+        "layers": [
+          [
+            "#b5713a",
+            0.2
+          ],
+          [
+            "#fbf1dc",
+            0.5
+          ],
+          [
+            "#c07a3a",
+            0.1
+          ]
+        ],
+        "top": "#c07a3a",
+        "topping": "biscoff"
+      },
+      "sized": false
+    },
+    {
+      "id": "lava-cake",
+      "name": "Molten Lava Cake",
+      "category": "cake",
+      "price": 4.8,
+      "kcal": 420,
+      "description": "Warm chocolate cake with a gooey molten centre, served with a dusting of sugar.",
+      "ingredients": [
+        "Dark chocolate",
+        "Butter",
+        "Eggs",
+        "Icing sugar",
+        "Fresh strawberry"
+      ],
+      "visual": {
+        "type": "lava"
+      },
+      "sized": false
+    },
+    {
+      "id": "red-velvet",
+      "name": "Red Velvet Slice",
+      "category": "cake",
+      "price": 4.4,
+      "kcal": 410,
+      "description": "Velvety cocoa sponge layered with silky cream-cheese frosting.",
+      "ingredients": [
+        "Red velvet sponge",
+        "Cream cheese frosting",
+        "White chocolate"
+      ],
+      "visual": {
+        "type": "slice",
+        "layers": [
+          [
+            "#a3202f",
+            0.24
+          ],
+          [
+            "#fbf3e6",
+            0.08
+          ],
+          [
+            "#a3202f",
+            0.24
+          ],
+          [
+            "#fbf3e6",
+            0.08
+          ],
+          [
+            "#a3202f",
+            0.24
+          ]
+        ],
+        "top": "#fbf3e6",
+        "topping": "crumbs"
+      },
+      "sized": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Test payment · WebCafe</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: var(--cream); min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+    .box { background: #fff; border-radius: 24px; box-shadow: var(--shadow-lg); padding: 36px 32px; width: min(420px, 100%); text-align: center; }
+    .warn { background: #fff4e5; color: #8a4b00; border: 1px solid #f3c98b; border-radius: 12px; padding: 10px 14px; font-size: 14px; margin-bottom: 20px; }
+    .amt { font-family: "Playfair Display", serif; font-size: 40px; font-weight: 700; margin: 6px 0 24px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="warn"><strong>TEST MODE</strong>: no real money is charged. Add your Safepay keys to accept real card payments.</div>
+    <p class="muted" id="oid">Loading…</p>
+    <div class="amt" id="amt"></div>
+    <button class="btn btn-dark block" id="pay">Simulate successful payment</button>
+    <a class="btn btn-ghost block" style="margin-top:10px" id="cancel">Cancel</a>
+  </div>
+  <script>
+    const id = new URLSearchParams(location.search).get("order") || "";
+    document.getElementById("cancel").href = "/payment/cancel?order=" + encodeURIComponent(id);
+    fetch("/api/orders/" + encodeURIComponent(id)).then((r) => r.json()).then((o) => {
+      document.getElementById("oid").textContent = o.error || `Order ${o.orderId}`;
+      if (!o.error) document.getElementById("amt").textContent = o.currency + o.total.toFixed(2);
+    });
+    document.getElementById("pay").onclick = async (e) => {
+      e.target.disabled = true;
+      const r = await fetch("/api/test-pay", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ orderId: id }) });
+      const out = await r.json();
+      if (out.redirect) location.href = out.redirect; else { alert(out.error); e.target.disabled = false; }
+    };
+  </script>
+</body>
+</html>
