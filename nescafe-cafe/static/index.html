@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nescafe Web Cafe</title>
+  <meta name="description" content="Freshly crafted coffee. Order espresso, lattes, cappuccinos, cold brew and more online for pickup or delivery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo" aria-label="Nescafe Web Cafe home">
+        <span class="logo-mark">N</span>
+        <span class="logo-text">NESCAFE<small>Web Cafe</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#menu">Menu</a>
+        <a href="#why">Why us</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Open your order">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span>Order</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Freshly crafted · Since day one</p>
+          <h1 class="reveal">Every cup,<br><em>perfectly brewed.</em></h1>
+          <p class="lead reveal">Premium coffee made the way you love it, from a bold espresso to a silky caramel macchiato. Order in seconds, then pick it up or have it delivered.</p>
+          <div class="hero-cta reveal">
+            <a href="#menu" class="btn btn-dark">Order now</a>
+            <a href="#why" class="btn btn-ghost">Our story</a>
+          </div>
+          <ul class="hero-stats reveal">
+            <li><strong>12+</strong><span>Signature drinks</span></li>
+            <li><strong>10 min</strong><span>Pickup ready</span></li>
+            <li><strong>4.9★</strong><span>Customer rating</span></li>
+          </ul>
+        </div>
+        <div class="hero-art reveal">
+          <div class="hero-ring"></div>
+          <div class="hero-cup" id="heroCup"></div>
+          <span class="bean b1"></span><span class="bean b2"></span><span class="bean b3"></span><span class="bean b4"></span>
+          <div class="hero-badge"><strong id="heroPrice"></strong><span>Cappuccino</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Espresso</span><span>✦</span><span>Cappuccino</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Mocha Frappé</span><span>✦</span><span>Caramel Macchiato</span><span>✦</span>
+        <span>Espresso</span><span>✦</span><span>Cappuccino</span><span>✦</span><span>Caffè Latte</span><span>✦</span><span>Cold Brew</span><span>✦</span><span>Mocha Frappé</span><span>✦</span><span>Caramel Macchiato</span><span>✦</span>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Our menu</p>
+          <h2>Crafted for every mood</h2>
+          <p class="muted">Tap any drink to see its ingredients, pick a size and add it to your order.</p>
+        </div>
+        <div class="filters reveal" role="tablist" id="filters">
+          <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="chip" data-filter="hot" role="tab" aria-selected="false">Hot coffee</button>
+          <button class="chip" data-filter="iced" role="tab" aria-selected="false">Iced</button>
+          <button class="chip" data-filter="special" role="tab" aria-selected="false">Specials</button>
+        </div>
+        <div class="grid" id="productGrid" aria-live="polite">
+          <p class="muted">Loading menu…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="section why" id="why">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Why customers love us</p>
+          <h2>Quality you can taste</h2>
+        </div>
+        <div class="features">
+          <article class="feature reveal">
+            <div class="feature-icon">☕</div>
+            <h3>Premium beans</h3>
+            <p>Hand-selected arabica, roasted in small batches for a rich, balanced cup.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">⚡</div>
+            <h3>Ready in 10 minutes</h3>
+            <p>Order online and skip the queue. Your drink is waiting when you arrive.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">🛵</div>
+            <h3>Fast delivery</h3>
+            <p>Hot stays hot, iced stays iced. Free delivery on orders over <span class="free-over"></span>.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">♡</div>
+            <h3>Made your way</h3>
+            <p>Three sizes and special instructions on every order, just how you like it.</p>
+          </article>
+        </div>
+
+        <div class="testimonials">
+          <blockquote class="reveal">“The best cappuccino in town, and ordering online is so easy.”<cite>Ayesha K.</cite></blockquote>
+          <blockquote class="reveal">“The caramel macchiato is unreal. My order was ready the second I walked in.”<cite>Daniel R.</cite></blockquote>
+          <blockquote class="reveal">“Clean, cozy, consistent. My daily cold brew stop.”<cite>Sara M.</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="band reveal">
+      <div class="container band-inner">
+        <h2>Your next favourite cup is one click away.</h2>
+        <a href="#menu" class="btn btn-light">Browse the menu</a>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section" id="visit">
+      <div class="container visit-grid">
+        <div class="reveal">
+          <p class="eyebrow">Visit us</p>
+          <h2>Come for the coffee,<br>stay for the vibe.</h2>
+          <p class="muted">Main Boulevard, City Centre<br>Phone: +00 000 0000000</p>
+        </div>
+        <div class="hours reveal">
+          <h3>Opening hours</h3>
+          <dl>
+            <dt>Monday – Friday</dt><dd>7:00 AM – 11:00 PM</dd>
+            <dt>Saturday</dt><dd>8:00 AM – 12:00 AM</dd>
+            <dt>Sunday</dt><dd>9:00 AM – 11:00 PM</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="logo-text light">NESCAFE<small>Web Cafe</small></span>
+      <p>© <span id="year"></span> Nescafe Web Cafe. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- PRODUCT MODAL -->
+  <div class="overlay" id="productOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pmName">
+      <button class="close" data-close aria-label="Close">×</button>
+      <div class="modal-art" id="pmArt"></div>
+      <div class="modal-body">
+        <p class="eyebrow" id="pmCat"></p>
+        <h2 id="pmName"></h2>
+        <p class="muted" id="pmDesc"></p>
+        <h4>Ingredients</h4>
+        <ul class="ingredients" id="pmIng"></ul>
+        <h4>Size</h4>
+        <div class="sizes" id="pmSizes"></div>
+        <div class="modal-actions">
+          <div class="qty">
+            <button type="button" id="pmMinus" aria-label="Decrease quantity">−</button>
+            <span id="pmQty">1</span>
+            <button type="button" id="pmPlus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn btn-dark grow" id="pmAdd">Add to order · <span id="pmTotal"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="overlay drawer-overlay" id="cartOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer-head">
+        <h2 id="cartTitle">Your order</h2>
+        <button class="close" data-close aria-label="Close">×</button>
+      </div>
+
+      <div class="drawer-step" id="stepCart">
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-summary" id="cartSummary"></div>
+      </div>
+
+      <form class="drawer-step checkout" id="stepCheckout" hidden novalidate>
+        <button type="button" class="link-back" id="backToCart">← Back to order</button>
+        <div class="seg" role="radiogroup" aria-label="Order type">
+          <label><input type="radio" name="mode" value="pickup" checked><span>Pickup</span></label>
+          <label><input type="radio" name="mode" value="delivery"><span>Delivery</span></label>
+        </div>
+        <label class="field">Full name<input name="name" autocomplete="name" required maxlength="80"></label>
+        <label class="field">Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="20"></label>
+        <label class="field" id="addressField" hidden>Delivery address<textarea name="address" rows="2" maxlength="200"></textarea></label>
+        <label class="field">Notes (optional)<textarea name="notes" rows="2" maxlength="300" placeholder="Less sugar, extra hot, oat milk…"></textarea></label>
+        <div class="totals" id="checkoutTotals"></div>
+        <p class="form-error" id="formError" role="alert"></p>
+        <button class="btn btn-dark block" type="submit" id="placeOrder">Place order</button>
+        <p class="small muted center">Pay at the counter or on delivery.</p>
+      </form>
+
+      <div class="drawer-step success" id="stepSuccess" hidden>
+        <div class="check"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M15 27l7 7 15-15"/></svg></div>
+        <h3>Order placed!</h3>
+        <p class="muted" id="successText"></p>
+        <p class="order-id" id="successId"></p>
+        <button class="btn btn-dark block" id="newOrder">Order something else</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/cups.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+{
+  "currency": "$",
+  "deliveryFee": 2.5,
+  "freeDeliveryOver": 25,
+  "sizes": {
+    "S": { "label": "Small", "ml": 240, "add": 0 },
+    "M": { "label": "Medium", "ml": 350, "add": 0.6 },
+    "L": { "label": "Large", "ml": 470, "add": 1.1 }
+  },
+  "products": [
+    {
+      "id": "espresso",
+      "name": "Classic Espresso",
+      "category": "hot",
+      "price": 2.5,
+      "badge": "Signature",
+      "kcal": 5,
+      "description": "A short, intense shot with a thick golden crema. Rich, bold and pure.",
+      "ingredients": ["Double-roasted arabica", "Filtered water"],
+      "visual": { "type": "espresso", "liquid": "#3b2416", "art": "crema" }
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "category": "hot",
+      "price": 3.0,
+      "kcal": 10,
+      "description": "Espresso lengthened with hot water for a smooth, clean, long black.",
+      "ingredients": ["Espresso (2 shots)", "Hot water"],
+      "visual": { "type": "cup", "liquid": "#2e1a10", "art": "crema" }
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "category": "hot",
+      "price": 3.8,
+      "badge": "Bestseller",
+      "kcal": 120,
+      "description": "Equal parts espresso, steamed milk and velvety foam, finished with cocoa.",
+      "ingredients": ["Espresso", "Steamed milk", "Milk foam", "Cocoa dusting"],
+      "visual": { "type": "cup", "liquid": "#c79a6b", "art": "cocoa" }
+    },
+    {
+      "id": "latte",
+      "name": "Caffè Latte",
+      "category": "hot",
+      "price": 4.0,
+      "kcal": 190,
+      "description": "Silky steamed milk poured over espresso with a hand-poured rosetta.",
+      "ingredients": ["Espresso", "Steamed whole milk", "Light microfoam"],
+      "visual": { "type": "cup", "liquid": "#a8703f", "art": "rosetta" }
+    },
+    {
+      "id": "flat-white",
+      "name": "Flat White",
+      "category": "hot",
+      "price": 3.9,
+      "kcal": 110,
+      "description": "A ristretto double shot with thin, glossy microfoam. Strong and creamy.",
+      "ingredients": ["Ristretto (2 shots)", "Steamed milk", "Microfoam"],
+      "visual": { "type": "cup", "liquid": "#8a5a32", "art": "heart" }
+    },
+    {
+      "id": "mocha",
+      "name": "Café Mocha",
+      "category": "hot",
+      "price": 4.5,
+      "kcal": 290,
+      "description": "Espresso and Belgian chocolate with steamed milk and whipped cream.",
+      "ingredients": ["Espresso", "Dark chocolate sauce", "Steamed milk", "Whipped cream", "Chocolate shavings"],
+      "visual": { "type": "cup", "liquid": "#5a3420", "art": "cream" }
+    },
+    {
+      "id": "caramel-macchiato",
+      "name": "Caramel Macchiato",
+      "category": "iced",
+      "price": 4.8,
+      "badge": "Customer favourite",
+      "kcal": 250,
+      "description": "Layers of cold milk, vanilla and espresso, crowned with a caramel drizzle.",
+      "ingredients": ["Espresso", "Cold milk", "Vanilla syrup", "Caramel drizzle", "Ice"],
+      "visual": {
+        "type": "glass",
+        "layers": [["#e9d3b6", 0.38], ["#b88353", 0.22], ["#5b3520", 0.12]],
+        "ice": true, "straw": true, "drizzle": "#c8812e"
+      }
+    },
+    {
+      "id": "iced-latte",
+      "name": "Iced Latte",
+      "category": "iced",
+      "price": 4.2,
+      "kcal": 150,
+      "description": "Chilled espresso over ice with fresh cold milk. Light and refreshing.",
+      "ingredients": ["Espresso", "Cold milk", "Ice"],
+      "visual": {
+        "type": "glass",
+        "layers": [["#f1e4d2", 0.42], ["#c49467", 0.18], ["#7a4a2a", 0.12]],
+        "ice": true, "straw": true
+      }
+    },
+    {
+      "id": "cold-brew",
+      "name": "Cold Brew",
+      "category": "iced",
+      "price": 4.0,
+      "kcal": 5,
+      "description": "Steeped for 18 hours for a naturally sweet, low-acid, ultra-smooth coffee.",
+      "ingredients": ["Coarse-ground arabica", "Cold filtered water", "Ice"],
+      "visual": {
+        "type": "glass",
+        "layers": [["#2c180d", 0.72]],
+        "ice": true, "straw": true
+      }
+    },
+    {
+      "id": "frappe",
+      "name": "Mocha Frappé",
+      "category": "special",
+      "price": 5.2,
+      "badge": "New",
+      "kcal": 380,
+      "description": "Blended coffee, chocolate and ice topped with whipped cream and chocolate drizzle.",
+      "ingredients": ["Instant coffee blend", "Milk", "Chocolate sauce", "Ice", "Whipped cream"],
+      "visual": {
+        "type": "glass",
+        "layers": [["#9b6a45", 0.74]],
+        "cream": true, "straw": true, "drizzle": "#4a2614"
+      }
+    },
+    {
+      "id": "hazelnut-latte",
+      "name": "Hazelnut Latte",
+      "category": "special",
+      "price": 4.7,
+      "kcal": 230,
+      "description": "Our caffè latte with toasted hazelnut syrup and a sweet nutty finish.",
+      "ingredients": ["Espresso", "Steamed milk", "Hazelnut syrup", "Microfoam"],
+      "visual": { "type": "cup", "liquid": "#b07d4f", "art": "rosetta" }
+    },
+    {
+      "id": "dalgona",
+      "name": "Dalgona Coffee",
+      "category": "special",
+      "price": 4.9,
+      "kcal": 210,
+      "description": "Whipped coffee cloud spooned over cold milk. Fluffy, sweet and photogenic.",
+      "ingredients": ["Instant coffee", "Sugar", "Hot water (whipped)", "Cold milk", "Ice"],
+      "visual": {
+        "type": "glass",
+        "layers": [["#f4ead9", 0.5], ["#c98b4e", 0.2]],
+        "ice": true
+      }
+    }
+  ]
+}
