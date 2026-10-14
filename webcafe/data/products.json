@@ -96,7 +96,8 @@
         "liquid": "#a8703f",
         "art": "rosetta"
       },
-      "sized": true
+      "sized": true,
+      "image": "img/products/missing.jpg"
     },
     {
       "id": "flat-white",
@@ -358,7 +359,8 @@
           ]
         ]
       },
-      "sized": false
+      "sized": false,
+      "image": "img/products/club-sandwich.png"
     },
     {
       "id": "chicken-tikka-panini",

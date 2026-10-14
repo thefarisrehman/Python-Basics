@@ -146,6 +146,10 @@ h2 { font-size: clamp(30px, 4vw, 46px); }
 .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: transparent; }
 .card-art { position: relative; background: #fff; aspect-ratio: 1 / .92; padding: 18px 26px 4px; cursor: pointer; border: 0; width: 100%; }
 .card-art .drink { width: 100%; height: 100%; transition: transform .6s var(--ease); }
+.drink.photo { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.hero-cup .photo { border-radius: 50%; object-fit: cover; }
+.modal-art .photo { max-height: 420px; }
+.thumb .photo { border-radius: 10px; }
 .card:hover .card-art .drink { transform: scale(1.07) rotate(-2deg); }
 .badge { position: absolute; top: 16px; left: 16px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; }
 .badge.alt { background: var(--brown); }

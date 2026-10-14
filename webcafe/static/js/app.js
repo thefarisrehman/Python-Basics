@@ -16,6 +16,12 @@
   const sizeLabel = (size) => (size ? menu.sizes[size].label : "");
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+  /* Product picture: your own photo when products.json has "image", else the drawn illustration. */
+  function art(p) {
+    if (p.image) return `<img class="drink photo" src="${esc(p.image)}" alt="${esc(p.name)}" data-id="${esc(p.id)}" loading="lazy">`;
+    return drinkSVG(p.visual, { label: p.name });
+  }
+
   function loadCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
   }
@@ -40,7 +46,7 @@
     if (menu.testMode) document.body.insertAdjacentHTML("afterbegin", `<div class="test-banner">Test mode: payments are simulated until Safepay keys are added.</div>`);
 
     const hero = byId.cappuccino || menu.products[0];
-    $("#heroCup").innerHTML = drinkSVG(hero.visual, { label: hero.name });
+    $("#heroCup").innerHTML = art(hero);
     $("#heroPrice").textContent = money(hero.price);
     $(".hero-badge span").textContent = hero.name;
     $$(".free-over").forEach((el) => (el.textContent = money(menu.freeDeliveryOver)));
@@ -59,7 +65,7 @@
       <article class="card" style="animation-delay:${i * 60}ms">
         <button class="card-art" data-open="${p.id}" aria-label="View ${esc(p.name)}">
           ${p.badge ? `<span class="badge ${p.badge === "New" ? "alt" : ""}">${esc(p.badge)}</span>` : ""}
-          ${drinkSVG(p.visual, { label: p.name })}
+          ${art(p)}
         </button>
         <div class="card-body">
           <div class="card-top"><h3>${esc(p.name)}</h3><span class="price">${money(p.price)}</span></div>
@@ -77,7 +83,7 @@
   function openProduct(id) {
     const p = byId[id];
     current = { product: p, size: defaultSize(p), qty: 1 };
-    $("#pmArt").innerHTML = drinkSVG(p.visual, { label: p.name });
+    $("#pmArt").innerHTML = art(p);
     $("#pmCat").textContent = `${CATEGORY[p.category]} · ${p.kcal} kcal`;
     $("#pmName").textContent = p.name;
     $("#pmDesc").textContent = p.description;
@@ -122,7 +128,7 @@
     $("#cartItems").innerHTML = cart.map((i, idx) => {
       const p = byId[i.id];
       return `<div class="cart-item">
-        <div class="thumb">${drinkSVG(p.visual, { label: p.name })}</div>
+        <div class="thumb">${art(p)}</div>
         <div><h4>${esc(p.name)}</h4><small>${i.size ? sizeLabel(i.size) + " · " : ""}${money(unitPrice(p, i.size))}</small>
           <div class="qty sm" style="margin-top:6px;width:max-content">
             <button data-dec="${idx}" aria-label="Decrease">−</button><span>${i.qty}</span><button data-inc="${idx}" aria-label="Increase">+</button>
@@ -238,6 +244,14 @@
   }
 
   function bindEvents() {
+    // If a photo file is missing or broken, fall back to the drawn illustration.
+    document.addEventListener("error", (e) => {
+      const img = e.target;
+      if (img.matches && img.matches("img.photo") && byId[img.dataset.id]) {
+        img.outerHTML = drinkSVG(byId[img.dataset.id].visual, { label: byId[img.dataset.id].name });
+      }
+    }, true);
+
     window.addEventListener("scroll", () => $("#nav").classList.toggle("scrolled", scrollY > 10), { passive: true });
 
     $("#filters").addEventListener("click", (e) => {

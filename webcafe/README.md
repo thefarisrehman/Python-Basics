@@ -49,6 +49,12 @@ Everything is in `data/products.json`:
 - `category` is one of `hot`, `iced`, `special`, `sandwich` or `cake`.
 - `visual` controls the illustration: `cup`, `espresso`, `glass`, `club`, `panini`, `slice` or `lava`.
 
+## Use your own product photos
+
+1. Put the photo in `static/img/products/`, for example `club-sandwich.jpg`. A square photo on a white background, around 1200×1200 px, looks best.
+2. In `data/products.json`, add `"image": "img/products/club-sandwich.jpg",` to that product.
+3. Refresh the page. Delete the line to go back to the drawn picture. If the file is missing, the drawing shows automatically.
+
 ## Before going live
 
 - Host the site behind HTTPS (for example nginx or Caddy) and set `PUBLIC_URL`.
