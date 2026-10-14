@@ -308,3 +308,75 @@ cite { display: block; margin-top: 14px; font-family: "Inter", sans-serif; font-
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* =========================================================
+   Motion (only when js/motion.js runs; skipped for reduced motion)
+   ========================================================= */
+
+/* Opening intro */
+.intro-on body { overflow: hidden; }
+.intro { position: fixed; inset: 0; z-index: 100; background: #fff; display: grid; place-items: center; cursor: pointer; transition: transform .85s cubic-bezier(.76, 0, .24, 1); }
+.intro.out { transform: translateY(-100%); }
+.intro::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--brown); transform-origin: left; animation: introLine 1.5s .2s var(--ease) both; }
+.intro-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; transition: opacity .4s, transform .6s var(--ease); }
+.intro.out .intro-inner { opacity: 0; transform: translateY(-40px); }
+.intro-emblem .logo-emblem { width: 92px; height: 92px; animation: emblemIn 1s var(--ease) both; }
+.intro-word { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: clamp(44px, 9vw, 72px); line-height: 1; overflow: hidden; padding-bottom: .12em; }
+.intro-word em { color: var(--brown); }
+.intro-word span { display: inline-block; animation: letterUp .7s var(--ease) both; animation-delay: calc(.35s + var(--i) * 55ms); }
+.intro-tag { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--brown); font-weight: 600; animation: fadeUp .7s .9s var(--ease) both; }
+.intro-bar { width: 160px; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.intro-bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; animation: introLine 1.3s .3s var(--ease) both; }
+@keyframes emblemIn { from { transform: scale(.3) rotate(-160deg); opacity: 0; } }
+@keyframes letterUp { from { transform: translateY(105%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } }
+@keyframes introLine { from { transform: scaleX(0); } }
+
+/* Hero entrance, choreographed after the intro */
+.motion .hero .reveal { opacity: 1; transform: none; transition: none; }
+.motion:not(.loaded) .hero .eyebrow, .motion:not(.loaded) .hero .lead, .motion:not(.loaded) .hero-cta,
+.motion:not(.loaded) .hero-stats, .motion:not(.loaded) .hero-art { opacity: 0; }
+.loaded .hero .eyebrow { animation: fadeUp .7s .1s var(--ease) both; }
+.loaded .hero .lead { animation: fadeUp .8s .65s var(--ease) both; }
+.loaded .hero-cta { animation: fadeUp .8s .8s var(--ease) both; }
+.loaded .hero-stats { animation: fadeUp .8s .95s var(--ease) both; }
+.loaded .hero-art { animation: heroArtIn 1.3s .2s cubic-bezier(.2, .9, .25, 1.05) both; }
+@keyframes heroArtIn { from { opacity: 0; transform: translateY(60px) scale(.85) rotate(-6deg); } }
+.loaded .hero-ring { animation: ringIn 1.4s .3s var(--ease) both, spin 40s 1.7s linear infinite; }
+@keyframes ringIn { from { transform: scale(.6) rotate(-90deg); opacity: 0; } }
+.loaded .hero-badge { animation: badgeIn .7s 1.2s cubic-bezier(.3, 1.6, .5, 1) both, float 6s 2s ease-in-out infinite reverse; }
+@keyframes badgeIn { from { opacity: 0; transform: scale(.4); } }
+.loaded .bean { animation: beanIn .9s calc(.6s + var(--bi, 0) * 120ms) cubic-bezier(.3, 1.5, .5, 1) both, drift 8s 2s ease-in-out infinite; }
+.b1 { --bi: 0; } .b2 { --bi: 1; } .b3 { --bi: 2; } .b4 { --bi: 3; }
+@keyframes beanIn { from { opacity: 0; scale: 0; } }
+
+/* Words rising into place */
+.w-wrap { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .12em .22em 0; margin: 0 -.12em -.22em 0; }
+.motion .split .w { display: inline-block; transform: translateY(110%); }
+.motion.loaded .hero h1.split.reveal .w { animation: wordUp .9s var(--ease) both; animation-delay: calc(.25s + var(--i) * 90ms); }
+.motion .reveal.in .split .w, .motion .split.reveal.in .w { animation: wordUp .8s var(--ease) both; animation-delay: calc(var(--i) * 60ms); }
+@keyframes wordUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
+
+/* Staggered reveals */
+.motion .reveal { transition-delay: var(--d, 0ms); }
+.motion .feature.reveal { transform: translateY(40px) scale(.96); }
+.motion .feature.reveal.in { transform: none; }
+
+/* Scroll progress */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70; background: linear-gradient(90deg, var(--brown), #c9a27f); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+.marquee { will-change: transform; }
+
+/* Product cards: 3D tilt + soft light following the pointer */
+.motion .card { transform-style: preserve-3d; }
+.motion .card:hover { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px); transition: transform .15s ease-out, box-shadow .45s var(--ease); }
+.motion .card-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .55), transparent 55%); }
+.motion .card:hover .card-art::after { opacity: 1; }
+
+/* Buttons: ripple + magnetic pull */
+.btn, .chip { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: .25; transform: scale(0); animation: ripple .65s ease-out forwards; pointer-events: none; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+.magnetic { transition: translate .25s var(--ease), transform .25s var(--ease), background .25s, color .25s, box-shadow .25s; }
+
+/* Picture flying into the cart */
+.fly { position: fixed; z-index: 90; pointer-events: none; margin: 0; border-radius: 16px; background: #fff; box-shadow: var(--shadow-lg); }
