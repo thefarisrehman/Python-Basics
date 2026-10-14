@@ -96,12 +96,12 @@
         "liquid": "#a8703f",
         "art": "rosetta"
       },
-      "sized": true,
-      "image": "img/products/missing.jpg"
+      "sized": true
     },
     {
       "id": "flat-white",
       "name": "Flat White",
+      "image": "img/products/flat-white.jpg",
       "category": "hot",
       "price": 3.9,
       "kcal": 110,
@@ -359,8 +359,7 @@
           ]
         ]
       },
-      "sized": false,
-      "image": "img/products/club-sandwich.png"
+      "sized": false
     },
     {
       "id": "chicken-tikka-panini",
